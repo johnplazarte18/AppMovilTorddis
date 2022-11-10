@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable-v24/btn_round_corners_orange.xml" value="0.2203125" />
+        <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/background_principal.xml" value="0.2203125" />
+        <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/btn_round_corners.xml" value="0.2203125" />
+        <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/button_state_list_anim_material.xml" value="0.2203125" />
+        <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/logo_torddis.xml" value="0.2203125" />
+        <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/layout/activity_main.xml" value="0.25" />
       </map>
     </option>
   </component>
