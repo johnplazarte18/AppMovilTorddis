@@ -14,6 +14,48 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         tools:layout_editor_absoluteX="1dp">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
+
+            <Button
+                android:id="@+id/btnSubirFoto"
+                android:layout_width="180dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/btn_round_corners"
+                android:backgroundTint="#3F51B5"
+                android:text="Subir foto"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnQuitarFoto"
+                android:layout_width="180dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="84dp"
+                android:background="@drawable/btn_round_corners"
+                android:backgroundTint="#E91E63"
+                android:text="Quitar foto"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="144dp"
+                android:layout_height="132dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/border_image_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_no_photography_24" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilNombre"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -187,7 +229,24 @@
                 android:textCursorDrawable="@drawable/color_cursor"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
                 tools:layout_editor_absoluteX="0dp" />
+
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnRegistrarse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/btn_round_corners"
+            android:text="Registrarse"
+            android:textColor="@color/white"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
     </LinearLayout>
 
