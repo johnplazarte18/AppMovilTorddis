@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Iniciar_sesion"
-    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+    tools:context=".Iniciar_sesion">
 
     <Button
         android:id="@+id/btnIniciarSesion2"
@@ -55,6 +55,8 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:hint="usuario"
+        app:boxStrokeColor="@color/Torddis_1"
+        app:hintTextColor="@color/Torddis_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +65,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textCursorDrawable="@drawable/color_cursor" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -75,7 +79,9 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:hint="Contraseña"
+        app:boxStrokeColor="@color/Torddis_1"
         app:endIconMode="password_toggle"
+        app:hintTextColor="@color/Torddis_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +92,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:textCursorDrawable="@drawable/color_cursor"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
             tools:layout_editor_absoluteX="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

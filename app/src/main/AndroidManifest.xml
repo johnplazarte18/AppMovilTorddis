@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Torddis">
         <activity
+            android:name=".Registrar_tutor"
+            android:exported="false" />
+        <activity
             android:name=".Iniciar_sesion"
             android:exported="false" />
         <activity
