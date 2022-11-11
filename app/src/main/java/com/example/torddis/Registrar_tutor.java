@@ -43,6 +43,7 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
     private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this,
+                R.style.datePickerDialog,
                 this,
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
