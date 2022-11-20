@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable-v24/btn_round_corners_orange.xml" value="0.2203125" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable-v24/btn_round_corners_white.xml" value="0.2203125" />
+        <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/background_menu_gradient_round_corners.xml" value="0.2203125" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/background_principal.xml" value="0.2203125" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/border_image_view.xml" value="0.2203125" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/btn_round_corners.xml" value="0.2203125" />
@@ -14,6 +15,7 @@
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/logo_torddis.xml" value="0.2203125" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/layout/activity_iniciar_sesion.xml" value="0.25" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/layout/activity_menu_opciones.xml" value="0.25" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/layout/activity_registrar_tutor.xml" value="0.22" />
       </map>
     </option>
