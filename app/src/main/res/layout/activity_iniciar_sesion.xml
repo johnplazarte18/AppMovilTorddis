@@ -13,6 +13,7 @@
         android:layout_height="55dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/btn_round_corners"
+        android:onClick="ocIniciarSesion"
         android:text="Iniciar sesión"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +65,7 @@
         app:startIconDrawable="@drawable/ic_person">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -89,6 +91,7 @@
         app:startIconDrawable="@drawable/ic_lock">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtClave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
