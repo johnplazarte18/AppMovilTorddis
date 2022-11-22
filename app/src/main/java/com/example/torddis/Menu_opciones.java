@@ -20,4 +20,8 @@ public class Menu_opciones extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ActSupervisados.class);
         startActivity(intent);
     }
+    public void ocObjeto(View view){
+        Intent intent = new Intent(getApplicationContext(), ActObjetos.class);
+        startActivity(intent);
+    }
 }

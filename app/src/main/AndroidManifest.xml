@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Torddis"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ActObjetos"
+            android:exported="false" />
+        <activity
             android:name=".ActSupervisados"
             android:exported="false" />
         <activity

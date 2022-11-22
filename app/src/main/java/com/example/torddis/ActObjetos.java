@@ -6,14 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class ActSupervisados extends AppCompatActivity {
+public class ActObjetos extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_act_supervisados);
+        setContentView(R.layout.activity_act_objetos);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//mostrar flecha atras
-        getSupportActionBar().setTitle("Lista de supervisados");
+        getSupportActionBar().setTitle("Lista de objetos");
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
