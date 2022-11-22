@@ -70,6 +70,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:onClick="ocSupervisados"
             app:cardCornerRadius="8dp"
             app:cardElevation="6dp">
 
@@ -85,15 +87,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/ic_supervisados"/>
+                    android:background="@drawable/ic_supervisados" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Supervisado"
                     android:layout_marginTop="8dp"
+                    android:text="Supervisado"
                     android:textSize="14sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

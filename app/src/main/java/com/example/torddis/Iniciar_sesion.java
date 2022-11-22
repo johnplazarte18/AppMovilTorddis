@@ -44,7 +44,7 @@ public class Iniciar_sesion extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void ocIniciarSesion(View view){
-        TextInputEditText txtUsuario=(findViewById(R.id.txtUsuario));
+        /*TextInputEditText txtUsuario=(findViewById(R.id.txtUsuario));
         TextInputEditText txtClave=(findViewById(R.id.txtClave));
 
         JSONObject paramObject = new JSONObject();
@@ -80,6 +80,9 @@ public class Iniciar_sesion extends AppCompatActivity {
             public void onFailure(Call<Tutor> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),"Credenciales incorrectas",Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
+
+        Intent intent = new Intent(getApplicationContext(), Menu_opciones.class);
+        startActivity(intent);
     }
 }
