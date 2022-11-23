@@ -11,6 +11,7 @@
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/btn_round_corners.xml" value="0.2203125" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/button_state_list_anim_material.xml" value="0.2203125" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/color_cursor.xml" value="0.2203125" />
+        <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/efecto_seleccionar_opcion.xml" value="0.2203125" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/ic_home.xml" value="0.2203125" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/logo_torddis.xml" value="0.2203125" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/menu_lateral.xml" value="0.2203125" />
@@ -24,6 +25,8 @@
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/layout/activity_menu_opciones.xml" value="0.25" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/layout/activity_registrar_tutor.xml" value="0.22" />
+        <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/layout/cabecera.xml" value="0.12952898550724637" />
+        <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/menu/menu_lateral.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>
