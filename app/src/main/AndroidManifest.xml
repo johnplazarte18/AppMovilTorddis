@@ -13,6 +13,15 @@
         android:theme="@style/Theme.Torddis"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ActReportes"
+            android:exported="false" />
+        <activity
+            android:name=".ActHistorial"
+            android:exported="false" />
+        <activity
+            android:name=".ActCamaras"
+            android:exported="false" />
+        <activity
             android:name=".ActMonitoreo"
             android:exported="false" />
         <activity

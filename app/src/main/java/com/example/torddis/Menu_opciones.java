@@ -28,4 +28,16 @@ public class Menu_opciones extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ActMonitoreo.class);
         startActivity(intent);
     }
+    public void ocCamaras(View view){
+        Intent intent = new Intent(getApplicationContext(), ActCamaras.class);
+        startActivity(intent);
+    }
+    public void ocHistorial(View view){
+        Intent intent = new Intent(getApplicationContext(), ActHistorial.class);
+        startActivity(intent);
+    }
+    public void ocReportes(View view){
+        Intent intent = new Intent(getApplicationContext(), ActReportes.class);
+        startActivity(intent);
+    }
 }

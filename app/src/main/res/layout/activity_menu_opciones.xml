@@ -184,6 +184,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:onClick="ocCamaras"
             app:cardCornerRadius="8dp"
             app:cardElevation="6dp">
 
@@ -220,6 +222,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:onClick="ocHistorial"
             app:cardCornerRadius="8dp"
             app:cardElevation="6dp">
 
@@ -256,6 +260,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:onClick="ocReportes"
             app:cardCornerRadius="8dp"
             app:cardElevation="6dp">
 
