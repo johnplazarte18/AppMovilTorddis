@@ -146,6 +146,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:onClick="ocMonitoreo"
             app:cardCornerRadius="8dp"
             app:cardElevation="6dp">
 
@@ -161,15 +163,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/ic_monitor"/>
+                    android:background="@drawable/ic_monitor" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Monitoriar"
-                    android:textSize="14sp"
                     android:layout_marginTop="8dp"
-                    android:textStyle="bold"/>
+                    android:text="Monitorear"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

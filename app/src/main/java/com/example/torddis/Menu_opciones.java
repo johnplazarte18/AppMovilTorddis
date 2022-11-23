@@ -24,4 +24,8 @@ public class Menu_opciones extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ActObjetos.class);
         startActivity(intent);
     }
+    public void ocMonitoreo(View view){
+        Intent intent = new Intent(getApplicationContext(), ActMonitoreo.class);
+        startActivity(intent);
+    }
 }
