@@ -1,5 +1,6 @@
 package com.example.torddis;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -24,7 +25,6 @@ public class Menu_opciones extends AppCompatActivity implements
         getSupportActionBar().hide();
         navView = (NavigationView) findViewById(R.id.nav_view);
         navView.setNavigationItemSelectedListener(this);
-
     }
     public void ocSupervisados(View view){
         Intent intent = new Intent(getApplicationContext(), ActSupervisados.class);

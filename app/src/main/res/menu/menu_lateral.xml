@@ -3,16 +3,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_seccion_1"
-            android:icon="@drawable/ic_lock"
-            android:title="Sección 1"/>
+            android:icon="@drawable/ic_notifications"
+            android:title="Notificaciones"/>
         <item
             android:id="@+id/menu_seccion_2"
-            android:icon="@drawable/ic_lock"
-            android:title="Sección 2"/>
-        <item
-            android:id="@+id/menu_seccion_3"
-            android:icon="@drawable/ic_lock"
-            android:title="Sección 3"/>
+            android:icon="@drawable/ic_person"
+            android:title="Editar perfil"/>
     </group>
 
     <item
@@ -21,12 +17,8 @@
         <menu>
             <item
                 android:id="@+id/menu_opcion_1"
-                android:icon="@drawable/ic_lock"
-                android:title="Opciones 1"/>
-            <item
-                android:id="@+id/menu_opcion_2"
-                android:icon="@drawable/ic_lock"
-                android:title="Opciones 2"/>
+                android:icon="@drawable/ic_close"
+                android:title="Cerrar sesión"/>
         </menu>
     </item>
 </menu>
