@@ -47,24 +47,9 @@ public class ActObjetos extends AppCompatActivity implements Asynchtask {
 
     private void obtenerObjetos() {
         ltObjetos=new HashMap<String, String>();
-        WebService ws= new WebService(APIBase.URLBASE+"monitoreo/permisos-objeto/?tutor_id=1",ltObjetos,ActObjetos.this,ActObjetos.this);
-        ws.execute("GET");
+        WebService ws= new WebService(ActObjetos.this,"GET",APIBase.URLBASE+"monitoreo/permisos-objeto/?tutor_id=1",this);
+        ws.execute();
 
-    }
-    public void llenarObjetos(String result) throws JSONException{
-        ArrayList<Objeto> lsObjetosws= new ArrayList<Objeto>();
-        JSONArray JSONlista =  new JSONArray(result);
-        for(int i=0; i< JSONlista.length();i++){
-            JSONObject jsonObjecto=  JSONlista.getJSONObject(i);
-            Objeto unObjeto=new Objeto();
-            unObjeto.setId(jsonObjecto.getInt("id"));
-            unObjeto.setNombre(jsonObjecto.getString("nombre"));
-            unObjeto.setFoto_objeto(jsonObjecto.getString("foto_objeto"));
-            unObjeto.setHabilitado(jsonObjecto.getBoolean("habilitado"));
-            lsObjetosws.add(unObjeto);
-        }
-        AdapterObjeto adapterObjeto=new AdapterObjeto(this,lsObjetosws);
-        rcvObjetos.setAdapter(adapterObjeto);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -78,6 +63,18 @@ public class ActObjetos extends AppCompatActivity implements Asynchtask {
 
     @Override
     public void processFinish(String result) throws JSONException {
-        this.llenarObjetos(result);
+        ArrayList<Objeto> lsObjetosws= new ArrayList<Objeto>();
+        JSONArray JSONlista =  new JSONArray(result);
+        for(int i=0; i< JSONlista.length();i++){
+            JSONObject jsonObjecto=  JSONlista.getJSONObject(i);
+            Objeto unObjeto=new Objeto();
+            unObjeto.setId(jsonObjecto.getInt("id"));
+            unObjeto.setNombre(jsonObjecto.getString("nombre"));
+            unObjeto.setFoto_objeto(jsonObjecto.getString("foto_objeto"));
+            unObjeto.setHabilitado(jsonObjecto.getBoolean("habilitado"));
+            lsObjetosws.add(unObjeto);
+        }
+        AdapterObjeto adapterObjeto=new AdapterObjeto(this,lsObjetosws);
+        rcvObjetos.setAdapter(adapterObjeto);
     }
 }

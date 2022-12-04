@@ -8,8 +8,18 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-public class Iniciar_sesion extends AppCompatActivity {
+import com.example.torddis.interfaces.APIBase;
+import com.example.torddis.models.Tutor;
+import com.example.torddis.models.UsuarioLogeado;
+import com.example.torddis.webService.Asynchtask;
+import com.example.torddis.webService.WebService;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class Iniciar_sesion extends AppCompatActivity implements Asynchtask {
+
+    JSONObject json_data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,45 +36,30 @@ public class Iniciar_sesion extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void ocIniciarSesion(View view){
+    public void ocIniciarSesion(View view) throws JSONException {
         /*TextInputEditText txtUsuario=(findViewById(R.id.txtUsuario));
         TextInputEditText txtClave=(findViewById(R.id.txtClave));
 
-        JSONObject paramObject = new JSONObject();
-        try {
-            paramObject.put("usuario", txtUsuario.getText().toString());
-            paramObject.put("clave", txtClave.getText().toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        */
+        json_data = new JSONObject();
+        json_data.put("usuario", "calmeidad");
+        json_data.put("clave", "123456");
+        WebService ws= new WebService(Iniciar_sesion.this,"POST",APIBase.URLBASE+"persona/autenticacion/",json_data.toString(),Iniciar_sesion.this);
+        ws.execute();
+    }
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(ApiInterface.URL_BASE)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        TutorAPI tutorAPI = retrofit.create(TutorAPI.class);
-        Call<Tutor> call = tutorAPI.iniciarSesion(paramObject.toString());
-        call.enqueue(new Callback<Tutor>() {
-            Tutor tutor=new Tutor();
-            @Override
-            public void onResponse(Call<Tutor> call, Response<Tutor> response) {
-                if(response.isSuccessful()){
-                    if (response.body().getId() != null) {
-                        tutor=response.body();
-                        Intent intent = new Intent(getApplicationContext(), Menu_opciones.class);
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(getApplicationContext(),"Credenciales incorrectas",Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Tutor> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"Credenciales incorrectas",Toast.LENGTH_LONG).show();
-            }
-        });*/
-
+    @Override
+    public void processFinish(String result) throws JSONException {
+        json_data = new JSONObject(result);
+        Tutor unTutor=new Tutor();
+        unTutor.setId(json_data.getInt("id"));
+        unTutor.setUsuario(json_data.getString("usuario"));
+        unTutor.setCorreo(json_data.getString("correo"));
+        unTutor.setFoto_perfil(json_data.getString("foto_perfil"));
+        unTutor.setPersona__nombres(json_data.getString("persona__nombres"));
+        unTutor.setPersona__apellidos(json_data.getString("persona__apellidos"));
+        unTutor.setPersona__fecha_nacimiento(json_data.getString("persona__fecha_nacimiento"));
+        UsuarioLogeado.unTutor=unTutor;
         Intent intent = new Intent(getApplicationContext(), Menu_opciones.class);
         startActivity(intent);
     }
