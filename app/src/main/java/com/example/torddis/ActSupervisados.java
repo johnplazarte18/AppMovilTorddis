@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.torddis.adapterRcVw.AdapterObjeto;
 import com.example.torddis.adapterRcVw.AdapterSupervisado;
@@ -39,13 +40,19 @@ public class ActSupervisados extends AppCompatActivity implements Asynchtask {
         rcvSupervisados.setHasFixedSize(true);
         rcvSupervisados.setLayoutManager(new LinearLayoutManager(this));
         rcvSupervisados.setItemAnimator(new DefaultItemAnimator());
-        this.obtenerSupervisados();
     }
     private void obtenerSupervisados() {
         WebService ws= new WebService(ActSupervisados.this,"GET", APIBase.URLBASE+"persona/supervisado/?tutor_id="+ UsuarioLogeado.unTutor.getId(),this);
         ws.execute();
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        this.obtenerSupervisados();
+    }
+
     @Override
     public void processFinish(String result) throws JSONException {
         ArrayList<Supervisado> lsSupervisadosws= new ArrayList<Supervisado>();
