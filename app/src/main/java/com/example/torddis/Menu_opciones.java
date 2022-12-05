@@ -1,6 +1,5 @@
 package com.example.torddis;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -8,15 +7,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.torddis.models.Tutor;
 import com.example.torddis.models.UsuarioLogeado;
 import com.google.android.material.navigation.NavigationView;
 
@@ -38,7 +32,7 @@ public class Menu_opciones extends AppCompatActivity implements
         navView.getHeaderView(0).findViewById(R.id.txtUsuarioLog);
 
         txtUsuarioLog=navView.getHeaderView(0).findViewById(R.id.txtUsuarioLog);
-        imgUsuarioLog=navView.getHeaderView(0).findViewById(R.id.imgUsuarioLog);
+        imgUsuarioLog=navView.getHeaderView(0).findViewById(R.id.imgUsuarioSup);
         txtUsuarioLog.setText(UsuarioLogeado.unTutor.getPersona__nombres()+" "+UsuarioLogeado.unTutor.getPersona__apellidos());
         //Glide.with(this).load(url).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
 

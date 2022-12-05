@@ -27,8 +27,6 @@ import java.util.Map;
 public class ActObjetos extends AppCompatActivity implements Asynchtask {
 
     RecyclerView rcvObjetos;
-    AdapterObjeto adapterObjeto;
-    Map<String,String> ltObjetos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,6 @@ public class ActObjetos extends AppCompatActivity implements Asynchtask {
     }
 
     private void obtenerObjetos() {
-        ltObjetos=new HashMap<String, String>();
         WebService ws= new WebService(ActObjetos.this,"GET",APIBase.URLBASE+"monitoreo/permisos-objeto/?tutor_id=1",this);
         ws.execute();
 
