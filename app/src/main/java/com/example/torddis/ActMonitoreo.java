@@ -240,7 +240,7 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
             AdapterDistracciones adapterDistracciones = new AdapterDistracciones(this, lsDistraccionws);
             rcvDistraccion.setAdapter(adapterDistracciones);
         } else {
-            JSONArray JSONlista s= new JSONArray(result);
+            JSONArray JSONlista = new JSONArray(result);
             if (JSONlista.length() == 0) {
                 vinculado = "POST";
             } else {
