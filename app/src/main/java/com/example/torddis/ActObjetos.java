@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.SearchView;
 
 import com.example.torddis.adapterRcVw.AdapterObjeto;
 import com.example.torddis.interfaces.APIBase;
@@ -24,10 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ActObjetos extends AppCompatActivity implements Asynchtask {
+public class ActObjetos extends AppCompatActivity implements Asynchtask,SearchView.OnQueryTextListener {
 
     RecyclerView rcvObjetos;
-
+    SearchView txtBuscarObjeto;
+    AdapterObjeto adapterObjeto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +37,8 @@ public class ActObjetos extends AppCompatActivity implements Asynchtask {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//mostrar flecha atras
         getSupportActionBar().setTitle("Lista de objetos");
 
-
+        txtBuscarObjeto=findViewById(R.id.txtBuscarObjeto);
+        txtBuscarObjeto.setOnQueryTextListener(this);
         rcvObjetos = (RecyclerView) findViewById(R.id.rcvObjetos);
         rcvObjetos.setHasFixedSize(true);
         rcvObjetos.setLayoutManager(new LinearLayoutManager(this));
@@ -71,7 +74,18 @@ public class ActObjetos extends AppCompatActivity implements Asynchtask {
             unObjeto.setHabilitado(jsonObjecto.getBoolean("habilitado"));
             lsObjetosws.add(unObjeto);
         }
-        AdapterObjeto adapterObjeto=new AdapterObjeto(this,lsObjetosws);
+        adapterObjeto=new AdapterObjeto(this,lsObjetosws);
         rcvObjetos.setAdapter(adapterObjeto);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapterObjeto.filtrado(newText);
+        return false;
     }
 }

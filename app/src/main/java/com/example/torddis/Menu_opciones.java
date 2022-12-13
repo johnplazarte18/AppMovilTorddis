@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.torddis.models.UsuarioLogeado;
 import com.google.android.material.navigation.NavigationView;
 
@@ -30,13 +31,11 @@ public class Menu_opciones extends AppCompatActivity implements
         navView = (NavigationView) findViewById(R.id.nav_view);
         navView.setNavigationItemSelectedListener(this);
         navView.getHeaderView(0).findViewById(R.id.txtUsuarioLog);
-
-        txtUsuarioLog=navView.getHeaderView(0).findViewById(R.id.txtUsuarioLog);
-        imgUsuarioLog=navView.getHeaderView(0).findViewById(R.id.imgUsuarioSup);
-        txtUsuarioLog.setText(UsuarioLogeado.unTutor.getPersona__nombres()+" "+UsuarioLogeado.unTutor.getPersona__apellidos());
-        //Glide.with(this).load(url).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
-
-        }
+        txtUsuarioLog = navView.getHeaderView(0).findViewById(R.id.txtUsuarioLog);
+        imgUsuarioLog = navView.getHeaderView(0).findViewById(R.id.imgUsuarioLog);
+        txtUsuarioLog.setText(UsuarioLogeado.unTutor.getPersona__nombres() + " " + UsuarioLogeado.unTutor.getPersona__apellidos());
+        Glide.with(this.getApplicationContext()).load(UsuarioLogeado.unTutor.getFoto_perfil()).into(imgUsuarioLog);
+    }
     public void ocSupervisados(View view){
         Intent intent = new Intent(getApplicationContext(), ActSupervisados.class);
         startActivity(intent);

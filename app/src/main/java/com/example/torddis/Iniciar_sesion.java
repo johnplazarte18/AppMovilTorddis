@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.Tutor;
@@ -42,8 +43,8 @@ public class Iniciar_sesion extends AppCompatActivity implements Asynchtask {
 
         */
         json_data = new JSONObject();
-        json_data.put("usuario", "calmeidad");
-        json_data.put("clave", "123456");
+        json_data.put("usuario", "admin");
+        json_data.put("clave", "admin");
         WebService ws= new WebService(Iniciar_sesion.this,"POST",APIBase.URLBASE+"persona/autenticacion/",json_data.toString(),Iniciar_sesion.this);
         ws.execute();
     }
@@ -51,16 +52,21 @@ public class Iniciar_sesion extends AppCompatActivity implements Asynchtask {
     @Override
     public void processFinish(String result) throws JSONException {
         json_data = new JSONObject(result);
-        Tutor unTutor=new Tutor();
-        unTutor.setId(json_data.getInt("id"));
-        unTutor.setUsuario(json_data.getString("usuario"));
-        unTutor.setCorreo(json_data.getString("correo"));
-        unTutor.setFoto_perfil(json_data.getString("foto_perfil"));
-        unTutor.setPersona__nombres(json_data.getString("persona__nombres"));
-        unTutor.setPersona__apellidos(json_data.getString("persona__apellidos"));
-        unTutor.setPersona__fecha_nacimiento(json_data.getString("persona__fecha_nacimiento"));
-        UsuarioLogeado.unTutor=unTutor;
-        Intent intent = new Intent(getApplicationContext(), Menu_opciones.class);
-        startActivity(intent);
+        if(json_data.has("id")){
+            Tutor unTutor=new Tutor();
+            unTutor.setId(json_data.getInt("id"));
+            unTutor.setUsuario(json_data.getString("usuario"));
+            unTutor.setCorreo(json_data.getString("correo"));
+            unTutor.setFoto_perfil(json_data.getString("foto_perfil"));
+            unTutor.setPersona__nombres(json_data.getString("persona__nombres"));
+            unTutor.setPersona__apellidos(json_data.getString("persona__apellidos"));
+            unTutor.setPersona__fecha_nacimiento(json_data.getString("persona__fecha_nacimiento"));
+            UsuarioLogeado.unTutor=unTutor;
+            Intent intent = new Intent(getApplicationContext(), Menu_opciones.class);
+            startActivity(intent);
+        }else{
+                Toast.makeText(this,json_data.getString("tutores"),Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

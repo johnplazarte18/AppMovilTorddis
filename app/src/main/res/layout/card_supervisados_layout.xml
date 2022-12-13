@@ -38,7 +38,7 @@
             android:layout_marginBottom="23dp" />
 
         <TextView
-            android:id="@+id/item_supervisado"
+            android:id="@+id/item_distraccion"
             android:layout_width="234dp"
             android:layout_height="35dp"
             android:layout_alignParentTop="true"
@@ -58,7 +58,7 @@
             android:id="@+id/item_edad_sup"
             android:layout_width="228dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/item_supervisado"
+            android:layout_below="@+id/item_distraccion"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="1dp"
             android:layout_marginLeft="10dp"

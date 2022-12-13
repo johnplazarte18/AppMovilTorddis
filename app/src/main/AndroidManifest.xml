@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Torddis"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ActEntrenar"
+            android:exported="false" />
+        <activity
+            android:name=".ActVincularDispositivo"
+            android:exported="false" />
+        <activity
             android:name=".ActCuentaSupervisado"
             android:exported="false" />
         <activity

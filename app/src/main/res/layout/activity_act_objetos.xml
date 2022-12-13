@@ -6,50 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ActObjetos"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+
+    <SearchView
+        android:id="@+id/txtBuscarObjeto"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilBuscarObjeto"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="292dp"
-            android:layout_height="44dp"
-            android:hint="Buscar objeto"
-            app:boxStrokeColor="@color/Torddis_1"
-            app:hintTextColor="@color/Torddis_1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnBuscarObjeto"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.476">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:textCursorDrawable="@drawable/color_cursor"
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btnBuscarObjeto"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/btn_round_corners"
-            android:text="Buscar"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </SearchView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvObjetos"
@@ -59,6 +27,6 @@
         android:layout_marginTop="12dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
         tools:layout_editor_absoluteX="4dp" />
+</LinearLayout>
 </RelativeLayout>

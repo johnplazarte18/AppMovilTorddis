@@ -1,19 +1,20 @@
 package com.example.torddis.adapterRcVw;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Switch;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.torddis.ActEntrenar;
+import com.example.torddis.ActSupervisados;
 import com.example.torddis.R;
-import com.example.torddis.models.Objeto;
 import com.example.torddis.models.Supervisado;
 
 import java.util.List;
@@ -41,6 +42,14 @@ public class AdapterSupervisado extends RecyclerView.Adapter<AdapterSupervisado.
         Supervisado unSupervisado = ltSupervisados.get(position);
         holder.item_supervisado.setText("Nombres : "+unSupervisado.getPersona__nombres()+" "+unSupervisado.getPersona__apellidos());
         holder.item_edad_sup.setText("Edad : "+unSupervisado.getPersona__edad());
+        holder.btnEntrenar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Ctx, ActEntrenar.class);
+                intent.putExtra("idSupervisado", unSupervisado.getId());
+                Ctx.startActivity(intent);
+            }
+        });
         Glide.with(Ctx).load(unSupervisado.getPersona__foto_perfil()).into(holder.item_image_Supervisado);
     }
 
@@ -53,11 +62,13 @@ public class AdapterSupervisado extends RecyclerView.Adapter<AdapterSupervisado.
         CircleImageView item_image_Supervisado;
         TextView item_supervisado;
         TextView item_edad_sup;
+        Button btnEntrenar;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             item_image_Supervisado=itemView.findViewById(R.id.item_image_Supervisado);
-            item_supervisado=itemView.findViewById(R.id.item_supervisado);
+            item_supervisado=itemView.findViewById(R.id.item_distraccion);
             item_edad_sup=itemView.findViewById(R.id.item_edad_sup);
+            btnEntrenar=itemView.findViewById(R.id.btnEntrenar);
         }
     }
 }
