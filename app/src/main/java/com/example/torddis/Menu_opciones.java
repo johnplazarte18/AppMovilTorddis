@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -23,6 +25,8 @@ public class Menu_opciones extends AppCompatActivity implements
     NavigationView navView;
     TextView txtUsuarioLog;
     CircleImageView imgUsuarioLog;
+
+    AlertDialog.Builder builder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,25 @@ public class Menu_opciones extends AppCompatActivity implements
     public void ocReportes(View view){
         Intent intent = new Intent(getApplicationContext(), ActReportes.class);
         startActivity(intent);
+    }
+    public void ocCerrarSesion(View view){
+        builder=new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle("Mensaje")
+                .setMessage("¿Desea cerrar la sesíon?")
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+        builder.show();
     }
     public void onOptionsItemSelected(View view) {
                 drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
