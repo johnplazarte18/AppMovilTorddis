@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
     tools:context=".ActSupervisados">
 
     <LinearLayout
@@ -15,7 +16,7 @@
         tools:layout_editor_absoluteY="1dp"
         android:padding="10dp">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnActRegSupervisado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +24,11 @@
             android:background="@drawable/btn_round_corners"
             android:onClick="ocCuentaSupervisados"
             android:text="Nuevo"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            app:backgroundTint="@color/Torddis_1"
+            app:icon="@drawable/ic_anadir"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvSupervisados"
