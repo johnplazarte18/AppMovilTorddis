@@ -14,6 +14,7 @@ import com.example.torddis.models.Tutor;
 import com.example.torddis.models.UsuarioLogeado;
 import com.example.torddis.webService.Asynchtask;
 import com.example.torddis.webService.WebService;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,15 +39,18 @@ public class Iniciar_sesion extends AppCompatActivity implements Asynchtask {
         return super.onOptionsItemSelected(item);
     }
     public void ocIniciarSesion(View view) throws JSONException {
-        /*TextInputEditText txtUsuario=(findViewById(R.id.txtUsuario));
+        TextInputEditText txtUsuario=(findViewById(R.id.txtUsuario));
         TextInputEditText txtClave=(findViewById(R.id.txtClave));
 
-        */
-        json_data = new JSONObject();
-        json_data.put("usuario", "admin");
-        json_data.put("clave", "admin");
-        WebService ws= new WebService(Iniciar_sesion.this,"POST",APIBase.URLBASE+"persona/autenticacion/",json_data.toString(),Iniciar_sesion.this);
-        ws.execute();
+        if(txtUsuario.getText().toString().trim().isEmpty() || txtClave.getText().toString().trim().isEmpty()){
+            Toast.makeText(this, "Existen campos sin llenar", Toast.LENGTH_SHORT).show();
+        }else {
+            json_data = new JSONObject();
+            json_data.put("usuario", txtUsuario.getText().toString());
+            json_data.put("clave", txtClave.getText().toString());
+            WebService ws= new WebService(Iniciar_sesion.this,"POST",APIBase.URLBASE+"persona/autenticacion/",json_data.toString(),Iniciar_sesion.this);
+            ws.execute();
+        }
     }
 
     @Override
