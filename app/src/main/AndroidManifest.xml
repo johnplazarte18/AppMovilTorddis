@@ -5,51 +5,66 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Torddis"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        >
         <activity
             android:name=".ActEntrenar"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ActVincularDispositivo"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ActCuentaSupervisado"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ActReportes"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ActHistorial"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ActCamaras"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ActMonitoreo"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ActObjetos"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ActSupervisados"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Menu_opciones"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Registrar_tutor"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Iniciar_sesion"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
