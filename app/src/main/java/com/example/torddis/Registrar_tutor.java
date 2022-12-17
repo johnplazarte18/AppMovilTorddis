@@ -108,30 +108,47 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
         TextInputLayout tilContrasena = findViewById(R.id.tilContrasena);
         TextInputLayout tilContrasenaRep = findViewById(R.id.tilContrasenaRep);
 
-        if(tilContrasena.getEditText().getText().toString().equals(tilContrasenaRep.getEditText().getText().toString())){
-            json_data = new JSONObject();
-            try {
-                json_data.put("usuario", tilUsuarioTutor.getEditText().getText().toString());
-                json_data.put("clave", tilContrasena.getEditText().getText().toString());
-                json_data.put("correo", tilCorreo.getEditText().getText().toString());
-                json_data.put("persona__nombres", tilNombre.getEditText().getText().toString());
-                json_data.put("persona__apellidos", tilApellidos.getEditText().getText().toString());
-                json_data.put("persona__fecha_nacimiento", tilFechaNace.getEditText().getText().toString());
-                String fotoEnBase64=this.bitmapBase(((BitmapDrawable)imgTutorReg.getDrawable()).getBitmap());
-                if (!fotoEnBase64.equals("")){
-                    json_data.put("persona__foto_perfil", "data:image/PNG;base64,"+fotoEnBase64);
-                }else{
-                    json_data.put("persona__foto_perfil", "");
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        if(
+                tilNombre.getEditText().getText().toString().trim().isEmpty()||
+                tilApellidos.getEditText().getText().toString().trim().isEmpty()||
+                tilCorreo.getEditText().getText().toString().trim().isEmpty()||
+                tilFechaNace.getEditText().getText().toString().trim().isEmpty()||
+                tilUsuarioTutor.getEditText().getText().toString().trim().isEmpty()||
+                tilContrasena.getEditText().getText().toString().trim().isEmpty()||
+                tilContrasenaRep.getEditText().getText().toString().trim().isEmpty()
+        ){
 
-            WebService ws= new WebService(Registrar_tutor.this,"POST", APIBase.URLBASE+"persona/tutor/",json_data.toString(),Registrar_tutor.this);
-            ws.execute();
+            Toast.makeText(this, "Existen campos sin llenar", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+            if(tilContrasena.getEditText().getText().toString().equals(tilContrasenaRep.getEditText().getText().toString())){
+                json_data = new JSONObject();
+                try {
+                    json_data.put("usuario", tilUsuarioTutor.getEditText().getText().toString());
+                    json_data.put("clave", tilContrasena.getEditText().getText().toString());
+                    json_data.put("correo", tilCorreo.getEditText().getText().toString());
+                    json_data.put("persona__nombres", tilNombre.getEditText().getText().toString());
+                    json_data.put("persona__apellidos", tilApellidos.getEditText().getText().toString());
+                    json_data.put("persona__fecha_nacimiento", tilFechaNace.getEditText().getText().toString());
+                    String fotoEnBase64="";
+                    try {
+                        fotoEnBase64=this.bitmapBase(((BitmapDrawable)imgTutorReg.getDrawable()).getBitmap());
+                    }catch (Exception ex){
+
+                    }
+                    if (!fotoEnBase64.equals("")){
+                        json_data.put("persona__foto_perfil", "data:image/PNG;base64,"+fotoEnBase64);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                WebService ws= new WebService(Registrar_tutor.this,"POST", APIBase.URLBASE+"persona/tutor/",json_data.toString(),Registrar_tutor.this);
+                ws.execute();
+            }else{
+                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+            }
         }
+
 
     }
     public String bitmapBase(Bitmap bitmap){
@@ -157,6 +174,7 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
         }else if (mensaje.equals("guardado")){
             builder=new AlertDialog.Builder(this);
+            builder.setCancelable(false);
             builder.setTitle("Mensaje de confirmación")
                     .setMessage("Tutor registrado")
                     .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -165,6 +183,7 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
                             finish();
                         }
                     });
+            builder.show();
         }
     }
 }
