@@ -109,7 +109,7 @@
             android:textCursorDrawable="@drawable/color_cursor" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -120,6 +120,10 @@
         android:onClick="ocRegistrarSupervisado"
         android:text="Registrar"
         android:textColor="@color/white"
+        app:backgroundTint="@color/Torddis_1"
+        app:icon="@drawable/ic_guardar"
+        app:iconGravity="textStart"
+        app:iconPadding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

@@ -226,7 +226,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegistrarse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -238,6 +238,10 @@
             android:onClick="ocRegistrarTutor"
             android:text="Registrarse"
             android:textColor="@color/white"
+            app:backgroundTint="@color/Torddis_1"
+            app:icon="@drawable/ic_guardar"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

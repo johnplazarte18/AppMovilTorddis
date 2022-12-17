@@ -18,7 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.torddis.clasesGenerales.FunIMG;
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.UsuarioLogeado;
 import com.example.torddis.webService.Asynchtask;
@@ -41,6 +43,7 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
     JSONObject json_data;
     TextInputEditText txtFechaNaceSup;
     AlertDialog.Builder builder;
+    boolean imagenSelec=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,7 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
         if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
             imageUri = data.getData();
             imgUsuarioSup.setImageURI(imageUri);
+            imagenSelec=true;
         }
     }
     public void ocRegistrarSupervisado(View view){
@@ -97,39 +101,36 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
         TextInputLayout tilApellidosSup = findViewById(R.id.tilApellidosSup);
         TextInputLayout tilFechaNaceSup = findViewById(R.id.tilFechaNaceSup);
         CircleImageView imgUsuarioSup=findViewById(R.id.imgUsuarioSup);
+        if(
+            tilApellidosSup.getEditText().getText().toString().trim().isEmpty() ||
+            tilNombresSup.getEditText().getText().toString().trim().isEmpty() ||
+            tilFechaNaceSup.getEditText().getText().toString().trim().isEmpty()
+        ){
+            Toast.makeText(this, "Existen campos sin llenar", Toast.LENGTH_SHORT).show();
+        }else {
 
-        json_data = new JSONObject();
-        try {
-            json_data.put("tutor_id", UsuarioLogeado.unTutor.getId());
-            json_data.put("persona__nombres", tilNombresSup.getEditText().getText().toString());
-            json_data.put("persona__apellidos", tilApellidosSup.getEditText().getText().toString());
-            json_data.put("persona__fecha_nacimiento", tilFechaNaceSup.getEditText().getText().toString());
-            String fotoEnBase64=this.bitmapBase(((BitmapDrawable)imgUsuarioSup.getDrawable()).getBitmap());
-            if (!fotoEnBase64.equals("")){
-                json_data.put("persona__foto_perfil", "data:image/PNG;base64,"+fotoEnBase64);
-            }else{
-                json_data.put("persona__foto_perfil", "");
+            json_data = new JSONObject();
+            try {
+                json_data.put("tutor_id", UsuarioLogeado.unTutor.getId());
+                json_data.put("persona__nombres", tilNombresSup.getEditText().getText().toString());
+                json_data.put("persona__apellidos", tilApellidosSup.getEditText().getText().toString());
+                json_data.put("persona__fecha_nacimiento", tilFechaNaceSup.getEditText().getText().toString());
+
+                if (imagenSelec) {
+                    String fotoEnBase64="";
+                    fotoEnBase64 = FunIMG.bitmapBase(((BitmapDrawable) imgUsuarioSup.getDrawable()).getBitmap());
+                    if (!fotoEnBase64.equals("")) {
+                        json_data.put("persona__foto_perfil", "data:image/png;base64," + fotoEnBase64);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+            WebService ws = new WebService(ActCuentaSupervisado.this, "POST", APIBase.URLBASE + "persona/supervisado/", json_data.toString(), ActCuentaSupervisado.this);
+            ws.execute();
         }
-
-        WebService ws= new WebService(ActCuentaSupervisado.this,"POST", APIBase.URLBASE+"persona/supervisado/",json_data.toString(),ActCuentaSupervisado.this);
-        ws.execute();
     }
-
-    public String bitmapBase(Bitmap bitmap){
-        String fotoEnBase64="";
-        if (bitmap != null) {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-            fotoEnBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
-        }
-        return fotoEnBase64;
-    }
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -157,11 +158,12 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
                     });
         }else{
             builder=new AlertDialog.Builder(this);
-            builder.setTitle("Mensaje de confirmación")
+            builder.setTitle("Mensaje")
                     .setMessage(mensaje)
                     .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
                     });
         }
