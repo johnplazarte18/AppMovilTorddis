@@ -6,20 +6,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.torddis.clasesGenerales.FunIMG;
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.UsuarioLogeado;
 import com.example.torddis.webService.Asynchtask;
@@ -31,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -42,6 +48,7 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
     Uri imageUri;
     JSONObject json_data;
     AlertDialog.Builder builder;
+    String tipoDeImagen="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +101,8 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
             imageUri = data.getData();
+            /*Uri file = Uri.fromFile(new File(FunIMG.getFileName(imageUri,getApplicationContext())));
+            tipoDeImagen= MimeTypeMap.getFileExtensionFromUrl(file.toString());*/
             imgTutorReg.setImageURI(imageUri);
         }
     }
@@ -129,15 +138,25 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
                     json_data.put("persona__nombres", tilNombre.getEditText().getText().toString());
                     json_data.put("persona__apellidos", tilApellidos.getEditText().getText().toString());
                     json_data.put("persona__fecha_nacimiento", tilFechaNace.getEditText().getText().toString());
+                   /*if(tipoDeImagen.equals("jpg")){
+                       String fotoEnBase64="";
+                       fotoEnBase64=FunIMG.bitmapBase(((BitmapDrawable)imgTutorReg.getDrawable()).getBitmap(),"jpg");
+                       if (!fotoEnBase64.equals("")){
+                           json_data.put("persona__foto_perfil", "data:image/jpg;base64,"+fotoEnBase64);
+                       }
+                   }else if (tipoDeImagen.equals("png")){
+                       String fotoEnBase64="";
+                       fotoEnBase64=FunIMG.bitmapBase(((BitmapDrawable)imgTutorReg.getDrawable()).getBitmap(),"png");
+                       if (!fotoEnBase64.equals("")){
+                           json_data.put("persona__foto_perfil", "data:image/png;base64,"+fotoEnBase64);
+                       }
+                   }*/
                     String fotoEnBase64="";
-                    try {
-                        fotoEnBase64=this.bitmapBase(((BitmapDrawable)imgTutorReg.getDrawable()).getBitmap());
-                    }catch (Exception ex){
-
-                    }
+                    fotoEnBase64=FunIMG.bitmapBase(((BitmapDrawable)imgTutorReg.getDrawable()).getBitmap(),"png");
                     if (!fotoEnBase64.equals("")){
-                        json_data.put("persona__foto_perfil", "data:image/PNG;base64,"+fotoEnBase64);
+                        json_data.put("persona__foto_perfil", "data:image/png;base64,"+fotoEnBase64);
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -151,16 +170,7 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
 
 
     }
-    public String bitmapBase(Bitmap bitmap){
-        String fotoEnBase64="";
-        if (bitmap != null) {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-            fotoEnBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
-        }
-        return fotoEnBase64;
-    }
+
 
     @Override
     public void processFinish(String result) throws JSONException {
