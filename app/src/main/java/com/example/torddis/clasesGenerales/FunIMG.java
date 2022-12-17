@@ -11,29 +11,7 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 
 public class FunIMG {
-    @SuppressLint("Range")
-    public static String  getFileName(Uri uri, Context context){
-        String res=null;
-        if(uri.getScheme().equals("content")){
-            Cursor cursor=context.getContentResolver().query(uri,null,null,null,null);
-            try{
-                if(cursor !=null && cursor.moveToFirst()){
-                    res=cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                }
-            }finally {
-                cursor.close();
-            }
-            if(res==null){
-                res=uri.getPath();
-                int cutt=res.lastIndexOf('/');
-                if(cutt != -1){
-                    res=res.substring(cutt+1);
-                }
-            }
-        }
-        return  res;
-    }
-    public static String bitmapBase(Bitmap bitmap,String ext){
+    public static String bitmapBase(Bitmap bitmap){
         String fotoEnBase64="";
         final int maxSize = 800;
         int outWidth;

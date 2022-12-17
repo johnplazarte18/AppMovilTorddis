@@ -48,7 +48,7 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
     Uri imageUri;
     JSONObject json_data;
     AlertDialog.Builder builder;
-    String tipoDeImagen="";
+    boolean imagenSelec=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +101,8 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
             imageUri = data.getData();
-            /*Uri file = Uri.fromFile(new File(FunIMG.getFileName(imageUri,getApplicationContext())));
-            tipoDeImagen= MimeTypeMap.getFileExtensionFromUrl(file.toString());*/
             imgTutorReg.setImageURI(imageUri);
+            imagenSelec=true;
         }
     }
 
@@ -138,23 +137,12 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
                     json_data.put("persona__nombres", tilNombre.getEditText().getText().toString());
                     json_data.put("persona__apellidos", tilApellidos.getEditText().getText().toString());
                     json_data.put("persona__fecha_nacimiento", tilFechaNace.getEditText().getText().toString());
-                   /*if(tipoDeImagen.equals("jpg")){
-                       String fotoEnBase64="";
-                       fotoEnBase64=FunIMG.bitmapBase(((BitmapDrawable)imgTutorReg.getDrawable()).getBitmap(),"jpg");
-                       if (!fotoEnBase64.equals("")){
-                           json_data.put("persona__foto_perfil", "data:image/jpg;base64,"+fotoEnBase64);
-                       }
-                   }else if (tipoDeImagen.equals("png")){
-                       String fotoEnBase64="";
-                       fotoEnBase64=FunIMG.bitmapBase(((BitmapDrawable)imgTutorReg.getDrawable()).getBitmap(),"png");
-                       if (!fotoEnBase64.equals("")){
-                           json_data.put("persona__foto_perfil", "data:image/png;base64,"+fotoEnBase64);
-                       }
-                   }*/
-                    String fotoEnBase64="";
-                    fotoEnBase64=FunIMG.bitmapBase(((BitmapDrawable)imgTutorReg.getDrawable()).getBitmap(),"png");
-                    if (!fotoEnBase64.equals("")){
-                        json_data.put("persona__foto_perfil", "data:image/png;base64,"+fotoEnBase64);
+                    if (imagenSelec) {
+                        String fotoEnBase64 = "";
+                        fotoEnBase64 = FunIMG.bitmapBase(((BitmapDrawable) imgTutorReg.getDrawable()).getBitmap());
+                        if (!fotoEnBase64.equals("")) {
+                            json_data.put("persona__foto_perfil", "data:image/png;base64," + fotoEnBase64);
+                        }
                     }
 
                 } catch (JSONException e) {
