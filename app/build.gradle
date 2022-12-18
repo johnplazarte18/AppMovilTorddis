@@ -43,4 +43,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0' //cargar imagen del servidor para mostrar en la app
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'//image view redondeado
+
+    implementation 'com.jjoe64:graphview:4.2.2' // crear gráficos de barra
 }
