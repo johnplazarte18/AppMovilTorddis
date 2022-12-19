@@ -13,6 +13,7 @@ import android.widget.SearchView;
 import com.example.torddis.adapterRcVw.AdapterObjeto;
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.Objeto;
+import com.example.torddis.models.UsuarioLogeado;
 import com.example.torddis.webService.Asynchtask;
 import com.example.torddis.webService.WebService;
 
@@ -47,7 +48,7 @@ public class ActObjetos extends AppCompatActivity implements Asynchtask,SearchVi
     }
 
     private void obtenerObjetos() {
-        WebService ws= new WebService(ActObjetos.this,"GET",APIBase.URLBASE+"monitoreo/permisos-objeto/?tutor_id=1",this);
+        WebService ws= new WebService(ActObjetos.this,"GET",APIBase.URLBASE+"monitoreo/permisos-objeto/?tutor_id="+ UsuarioLogeado.unTutor.getId(),this);
         ws.execute();
 
     }

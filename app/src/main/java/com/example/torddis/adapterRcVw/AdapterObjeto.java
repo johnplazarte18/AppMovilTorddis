@@ -65,7 +65,7 @@ public class AdapterObjeto extends RecyclerView.Adapter<AdapterObjeto.ViewHolder
                     e.printStackTrace();
                 }
                 if(isChecked){
-                    WebService ws= new WebService(Ctx,"POST", APIBase.URLBASE+"monitoreo/permisos-objeto/?tutor_id="+ UsuarioLogeado.unTutor.getId(),json_data.toString(), (Asynchtask) Ctx);
+                    WebService ws= new WebService(Ctx,"POST", APIBase.URLBASE+"monitoreo/permisos-objeto/",json_data.toString(), (Asynchtask) Ctx);
                     ws.execute();
                 }else{
                     WebService ws= new WebService(Ctx,"DELETE", APIBase.URLBASE+"monitoreo/permisos-objeto/?tutor_id="+ UsuarioLogeado.unTutor.getId()+"&objeto_id="+unObjeto.getId(), (Asynchtask) Ctx);
