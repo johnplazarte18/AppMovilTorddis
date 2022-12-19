@@ -76,7 +76,7 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = year+"-"+month+"-"+dayOfMonth;
+        String date = year+"-"+(month+1)+"-"+dayOfMonth;
         txtFechaNaceSup.setText(date);
     }
 

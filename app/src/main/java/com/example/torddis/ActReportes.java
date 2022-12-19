@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.torddis.adapterRcVw.AdapterHistorial;
@@ -25,6 +26,7 @@ import com.example.torddis.webService.WebService;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.ValueDependentColor;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 
@@ -39,6 +41,7 @@ import java.util.List;
 public class ActReportes extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, Asynchtask {
 
     TextInputEditText txtFechaGraficos;
+    TextView txtSeleccionadoSupR;
     List<Supervisado> ltSupervisados;
     int supervisadoId = 0;
     GraphView grafico_expresiones;
@@ -52,6 +55,7 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//mostrar flecha atras
         getSupportActionBar().setTitle("Reportes");
         txtFechaGraficos = findViewById(R.id.txtFechaGraficos);
+        txtSeleccionadoSupR=findViewById(R.id.txtSeleccionadoSupR);
         findViewById(R.id.txtFechaGraficos).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +107,7 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = year + "-" + month + "-" + dayOfMonth;
+        String date = year + "-" + (month+1) + "-" + dayOfMonth;
         txtFechaGraficos.setText(date);
     }
 
@@ -128,14 +132,19 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
                     new DataPoint(6,jsonExpresiones.getInt("triste")),
                     new DataPoint(7,jsonExpresiones.getInt("sorprendido"))
             });
+            series_expresiones.setTitle("Conteo de expresiones faciales");
             grafico_expresiones.addSeries(series_expresiones);
+            StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(grafico_expresiones);
+            staticLabelsFormatter.setHorizontalLabels(new String[] {"enf", "disg", "temer", "feliz", "neutral", "triste", "sorpr"});
+            grafico_expresiones.setTitle("Conteo de expresiones faciales");
+            grafico_expresiones.getLegendRenderer().setVisible(true);
+            grafico_expresiones.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
             series_expresiones.setValueDependentColor(new ValueDependentColor<DataPoint>() {
                 @Override
                 public int get(DataPoint data) {
                     return Color.rgb((int)data.getX()*255/4,(int)data.getY()*255/6,100);
                 }
             });
-            series_expresiones.setTitle("Contedo de expresiones faciales");
             series_expresiones.setDrawValuesOnTop(true);
             series_expresiones.setAnimated(true);
             series_expresiones.setValuesOnTopColor(Color.MAGENTA);
@@ -151,6 +160,11 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
                     new DataPoint(7,jsonSueno.getInt("dia_7"))
             });
             grafico_sueno.addSeries(serie_sueno);
+            grafico_sueno.setTitle("Conteo de sueño");
+            StaticLabelsFormatter staticLabelsFormatter2 = new StaticLabelsFormatter(grafico_sueno);
+            staticLabelsFormatter2.setHorizontalLabels(new String[] {"dia:1", "dia:2", "dia:3", "dia:4", "dia:5", "dia:6", "dia:7"});
+            grafico_sueno.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter2);
+            grafico_sueno.getLegendRenderer().setVisible(true);
             serie_sueno.setValueDependentColor(new ValueDependentColor<DataPoint>() {
                 @Override
                 public int get(DataPoint data) {
@@ -173,6 +187,11 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
                     new DataPoint(7,jsonObjetos.getInt("dia_7"))
             });
             grafico_objetos.addSeries(serie_objetos);
+            grafico_objetos.setTitle("Conteo de uso de objetos no permitidos por días");
+            StaticLabelsFormatter staticLabelsFormatter3 = new StaticLabelsFormatter(grafico_objetos);
+            staticLabelsFormatter3.setHorizontalLabels(new String[] {"dia:1", "dia:2", "dia:3", "dia:4", "dia:5", "dia:6", "dia:7"});
+            grafico_objetos.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter3);
+            grafico_objetos.getLegendRenderer().setVisible(true);
             serie_objetos.setValueDependentColor(new ValueDependentColor<DataPoint>() {
                 @Override
                 public int get(DataPoint data) {
@@ -226,6 +245,7 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
                         for (Supervisado s:ltSupervisados){
                             if (s.getPersona__nombres().equals(strName)){
                                 supervisadoId=s.getId();
+                                txtSeleccionadoSupR.setText("Seleccionado : "+s.getPersona__nombres());
                             }
                         }
                         dialog.dismiss();

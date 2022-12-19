@@ -100,7 +100,7 @@ public class ActEditarSupervisado extends AppCompatActivity implements Asynchtas
     }
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = year+"-"+month+"-"+dayOfMonth;
+        String date = year+"-"+(month+1)+"-"+dayOfMonth;
         txtFechaNaceSupE.setText(date);
     }
     public void ocEditarSupervisado(View view){
