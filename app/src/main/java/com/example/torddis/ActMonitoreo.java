@@ -14,6 +14,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -56,7 +57,7 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
     String direccion_ruta = "";
     int idCamara = 0;
     boolean direccion_correcta = true;
-    boolean borrarContenidoView = true;
+    boolean borrarContenidoView = false;
     boolean guardarCamara = true;
     boolean listarDistracciones = false;
     JSONObject json_data;
@@ -128,7 +129,7 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
             webvideo.getSettings().setPluginState(WebSettings.PluginState.ON);
         }
-        webvideo.loadUrl("http://" + direccion_ruta + "/stream");
+        webvideo.loadUrl(APIBase.URLBASE+"monitoreo/stream-monitoreo/");
         progDailog = new ProgressDialog(ActMonitoreo.this);
         progDailog.setMessage("Cargando transmisión");
         progDailog.setIndeterminate(false);
@@ -186,6 +187,7 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
         LinearLayout layout = new LinearLayout(ActMonitoreo.this);
         layout.setOrientation(LinearLayout.VERTICAL);
         EditText editTextNombre = new EditText(ActMonitoreo.this);
+        editTextNombre.setFilters(new InputFilter[]{new InputFilter.LengthFilter(150)});
         editTextNombre.setText(direccion_ruta);
         editTextNombre.setHint("Ingresar dirección ip la cámara");
         layout.addView(editTextNombre);

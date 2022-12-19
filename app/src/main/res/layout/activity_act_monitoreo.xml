@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
     tools:context=".ActMonitoreo"
     android:orientation="vertical"
     android:padding="10dp">
@@ -12,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="90dp">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnVincularCamara"
             android:layout_width="193dp"
             android:layout_height="53dp"
@@ -20,6 +21,10 @@
             android:onClick="ocVincularDispositivo"
             android:text="Vincular dispositivo"
             android:textColor="@color/white"
+            app:backgroundTint="@color/Torddis_1"
+            app:icon="@drawable/ic_vincular"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/swtTransmision"
             app:layout_constraintHorizontal_bias="0.219"
