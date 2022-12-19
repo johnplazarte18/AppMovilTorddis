@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.torddis.ActEditarSupervisado;
 import com.example.torddis.ActEntrenar;
 import com.example.torddis.ActSupervisados;
 import com.example.torddis.R;
@@ -50,6 +51,18 @@ public class AdapterSupervisado extends RecyclerView.Adapter<AdapterSupervisado.
                 Ctx.startActivity(intent);
             }
         });
+        holder.btnModificarSup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Ctx, ActEditarSupervisado.class);
+                intent.putExtra("idSupervisado", unSupervisado.getId());
+                intent.putExtra("persona__nombres", unSupervisado.getPersona__nombres());
+                intent.putExtra("persona__apellidos", unSupervisado.getPersona__apellidos());
+                intent.putExtra("persona__fecha_nacimiento", unSupervisado.getPersona__fecha_nacimiento());
+                intent.putExtra("persona__foto_perfil", unSupervisado.getPersona__foto_perfil());
+                Ctx.startActivity(intent);
+            }
+        });
         Glide.with(Ctx).load(unSupervisado.getPersona__foto_perfil()).into(holder.item_image_Supervisado);
     }
 
@@ -63,12 +76,14 @@ public class AdapterSupervisado extends RecyclerView.Adapter<AdapterSupervisado.
         TextView item_supervisado;
         TextView item_edad_sup;
         Button btnEntrenar;
+        Button btnModificarSup;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             item_image_Supervisado=itemView.findViewById(R.id.item_image_Supervisado);
             item_supervisado=itemView.findViewById(R.id.item_distraccion);
             item_edad_sup=itemView.findViewById(R.id.item_edad_sup);
             btnEntrenar=itemView.findViewById(R.id.btnEntrenar);
+            btnModificarSup=itemView.findViewById(R.id.btnModificarSup);
         }
     }
 }

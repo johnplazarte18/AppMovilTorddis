@@ -8,18 +8,16 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.torddis.clasesGenerales.FunIMG;
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.UsuarioLogeado;
@@ -31,37 +29,50 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtask, DatePickerDialog.OnDateSetListener {
+public class ActEditarSupervisado extends AppCompatActivity implements Asynchtask, DatePickerDialog.OnDateSetListener {
     private static final int PICK_IMAGE = 100;
     Uri imageUri;
-    CircleImageView imgUsuarioSup;
+    CircleImageView imgUsuarioSupE;
     JSONObject json_data;
-    TextInputEditText txtFechaNaceSup;
+    TextInputEditText txtFechaNaceSupE;
     AlertDialog.Builder builder;
     boolean imagenSelec=false;
+    int idSupervisado=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_act_cuenta_supervisado);
+        setContentView(R.layout.activity_act_editar_supervisado);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//mostrar flecha atras
         getSupportActionBar().setTitle("Cuenta de supervisado");
-        imgUsuarioSup = (CircleImageView)findViewById(R.id.imgUsuarioSup);
 
-        txtFechaNaceSup=findViewById(R.id.txtFechaNaceSup);
-        findViewById(R.id.txtFechaNaceSup).setOnClickListener(new View.OnClickListener() {
+        idSupervisado = getIntent().getExtras().getInt("idSupervisado");
+
+        TextInputLayout tilNombresSupE=findViewById(R.id.tilNombresSupE);
+        TextInputLayout tilApellidosSupE=findViewById(R.id.tilApellidosSupE);
+        txtFechaNaceSupE=findViewById(R.id.txtFechaNaceSupE);
+        imgUsuarioSupE = (CircleImageView)findViewById(R.id.imgUsuarioSupE);
+
+        tilNombresSupE.getEditText().setText(getIntent().getExtras().getString("persona__nombres"));
+        tilApellidosSupE.getEditText().setText(getIntent().getExtras().getString("persona__apellidos"));
+        txtFechaNaceSupE.setText(getIntent().getExtras().getString("persona__fecha_nacimiento"));
+        if(!getIntent().getExtras().getString("persona__foto_perfil").isEmpty()){
+            Glide.with(this).load(getIntent().getExtras().getString("persona__foto_perfil")).into(imgUsuarioSupE);
+        }
+
+        txtFechaNaceSupE=findViewById(R.id.txtFechaNaceSupE);
+        findViewById(R.id.txtFechaNaceSupE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
             }
         });
-
     }
+
     private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this,
@@ -73,44 +84,42 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
         );
         datePickerDialog.show();
     }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = year+"-"+month+"-"+dayOfMonth;
-        txtFechaNaceSup.setText(date);
-    }
-
-    public void ocAbrirGaleria(View view){
+    public void ocAbrirGaleriaSupE(View view){
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         gallery.setType("image/*");
         startActivityForResult(gallery, PICK_IMAGE);
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
             imageUri = data.getData();
-            imgUsuarioSup.setImageURI(imageUri);
+            imgUsuarioSupE.setImageURI(imageUri);
             imagenSelec=true;
         }
     }
-    public void ocRegistrarSupervisado(View view){
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String date = year+"-"+month+"-"+dayOfMonth;
+        txtFechaNaceSupE.setText(date);
+    }
+    public void ocEditarSupervisado(View view){
 
-        TextInputLayout tilNombresSup = findViewById(R.id.tilNombresSup);
-        TextInputLayout tilApellidosSup = findViewById(R.id.tilApellidosSup);
-        TextInputLayout tilFechaNaceSup = findViewById(R.id.tilFechaNaceSup);
-        CircleImageView imgUsuarioSup=findViewById(R.id.imgUsuarioSup);
+        TextInputLayout tilNombresSup = findViewById(R.id.tilNombresSupE);
+        TextInputLayout tilApellidosSup = findViewById(R.id.tilApellidosSupE);
+        TextInputLayout tilFechaNaceSup = findViewById(R.id.tilFechaNaceSupE);
+        CircleImageView imgUsuarioSup=findViewById(R.id.imgUsuarioSupE);
         if(
-            tilApellidosSup.getEditText().getText().toString().trim().isEmpty() ||
-            tilNombresSup.getEditText().getText().toString().trim().isEmpty() ||
-            tilFechaNaceSup.getEditText().getText().toString().trim().isEmpty()
+                tilApellidosSup.getEditText().getText().toString().trim().isEmpty() ||
+                        tilNombresSup.getEditText().getText().toString().trim().isEmpty() ||
+                        tilFechaNaceSup.getEditText().getText().toString().trim().isEmpty()
         ){
             Toast.makeText(this, "Existen campos sin llenar", Toast.LENGTH_SHORT).show();
         }else {
 
             json_data = new JSONObject();
             try {
+                json_data.put("id", idSupervisado);
                 json_data.put("tutor_id", UsuarioLogeado.unTutor.getId());
                 json_data.put("persona__nombres", tilNombresSup.getEditText().getText().toString());
                 json_data.put("persona__apellidos", tilApellidosSup.getEditText().getText().toString());
@@ -118,7 +127,7 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
 
                 if (imagenSelec) {
                     String fotoEnBase64="";
-                    fotoEnBase64 = FunIMG.bitmapBase(((BitmapDrawable) imgUsuarioSup.getDrawable()).getBitmap());
+                    fotoEnBase64 = FunIMG.bitmapBase(((BitmapDrawable) imgUsuarioSupE.getDrawable()).getBitmap());
                     if (!fotoEnBase64.equals("")) {
                         json_data.put("persona__foto_perfil", "data:image/png;base64," + fotoEnBase64);
                     }
@@ -127,7 +136,7 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
                 e.printStackTrace();
             }
 
-            WebService ws = new WebService(ActCuentaSupervisado.this, "POST", APIBase.URLBASE + "persona/supervisado/", json_data.toString(), ActCuentaSupervisado.this);
+            WebService ws = new WebService(ActEditarSupervisado.this, "PUT", APIBase.URLBASE + "persona/supervisado/", json_data.toString(), ActEditarSupervisado.this);
             ws.execute();
         }
     }
@@ -150,7 +159,7 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
             builder=new AlertDialog.Builder(this);
             builder.setCancelable(false);
             builder.setTitle("Mensaje de confirmación")
-                    .setMessage("Supervisado registrado")
+                    .setMessage("Cambios realizados")
                     .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
