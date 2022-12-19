@@ -9,61 +9,70 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="10dp"
         android:orientation="vertical">
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilFechaHistorial"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="Fecha"
-        android:clickable="true"
-        app:boxStrokeColor="@color/Torddis_1"
-        app:hintTextColor="@color/Torddis_1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtFechaHistorial"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilFechaHistorial"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="date"
             android:clickable="true"
-            android:focusable="false"
-            android:textCursorDrawable="@drawable/color_cursor" />
+            android:hint="Seleccionar fecha..."
+            app:boxStrokeColor="@color/Torddis_1"
+            app:hintTextColor="@color/Torddis_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="parent">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtFechaHistorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="date"
+                android:textCursorDrawable="@drawable/color_cursor" />
 
-        <Button
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSupervisados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
             android:background="@drawable/btn_round_corners"
             android:onClick="ocListarSupervisados"
             android:text="Supervisados"
             android:textColor="@color/white"
+            app:backgroundTint="@color/Torddis_1"
+            app:icon="@drawable/ic_face"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp"
+            android:layout_marginTop="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"/>
-        <Button
+
+        <TextView
+            android:id="@+id/txtSeleccionadoSup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seleccionado : No hay seleccionado" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnConsultar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="0dp"
             android:background="@drawable/btn_round_corners"
             android:onClick="ocConsultarHistorial"
             android:text="Consultar historial"
             android:textColor="@color/white"
+            app:backgroundTint="@color/Torddis_1"
+            app:icon="@drawable/ic_lock_open"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"/>

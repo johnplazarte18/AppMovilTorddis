@@ -68,7 +68,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.View
 
         holder.item_observacion.setText(unaHistoria.getObservacion());
         holder.item_fecha.setText("Fc : "+dateTime.getYear()+"-"+dateTime.getMonthValue()+"-"+dateTime.getDayOfMonth());
-        holder.item_hora.setText("Hr : "+dateTime.getHour()+":"+dateTime.getMinute()+"-"+dateTime.getSecond());
+        holder.item_hora.setText("Hr : "+dateTime.getHour()+":"+dateTime.getMinute()+":"+dateTime.getSecond());
         holder.btnVerFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

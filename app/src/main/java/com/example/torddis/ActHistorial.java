@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.torddis.adapterRcVw.AdapterHistorial;
@@ -33,18 +34,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ActHistorial extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, Asynchtask {
     TextInputEditText txtFechaHistorial;
+    TextView txtSeleccionadoSup;
     List<Supervisado> ltSupervisados;
     int supervisadoId=0;
     AdapterHistorial adapterHistorial;
     RecyclerView rcvHistorial;
+    String listado="h";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,18 +58,21 @@ public class ActHistorial extends AppCompatActivity implements DatePickerDialog.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//mostrar flecha atras
         getSupportActionBar().setTitle("Historial");
         txtFechaHistorial=findViewById(R.id.txtFechaHistorial);
+        txtSeleccionadoSup=findViewById(R.id.txtSeleccionadoSup);
         findViewById(R.id.txtFechaHistorial).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
             }
         });
-
         rcvHistorial = (RecyclerView) findViewById(R.id.rcvHistorial);
         rcvHistorial.setHasFixedSize(true);
         rcvHistorial.setLayoutManager(new LinearLayoutManager(this));
         rcvHistorial.setItemAnimator(new DefaultItemAnimator());
+
+        ListarHistorial();
     }
+
     private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this,
@@ -85,43 +94,52 @@ public class ActHistorial extends AppCompatActivity implements DatePickerDialog.
         return super.onOptionsItemSelected(item);
     }
     public void ocListarSupervisados(View view){
+        listado="s";
         WebService ws= new WebService(ActHistorial.this,"GET", APIBase.URLBASE+"persona/supervisado/?tutor_id="+UsuarioLogeado.unTutor.getId(),this);
+        ws.execute();
+    }
+    public void ListarHistorial(){
+        Date date = new Date();
+        DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        String fecha=dateFormat.format(date);
+        WebService ws= new WebService(ActHistorial.this,"GET", APIBase.URLBASE+"monitoreo/historial/?tutor_id="+UsuarioLogeado.unTutor.getId()+"&fecha_actual="+fecha,this);
         ws.execute();
     }
     public void ocConsultarHistorial(View view){
         if(txtFechaHistorial.getText().toString().equals("") || supervisadoId==0){
             Toast.makeText(this,"Faltan datos por seleccionar",Toast.LENGTH_SHORT).show();
         }else {
-            JSONObject json_data = new JSONObject();
+            listado="h";
             WebService ws = new WebService(ActHistorial.this, "GET", APIBase.URLBASE + "monitoreo/historial/?supervisado_id="+supervisadoId+"&fecha="+txtFechaHistorial.getText().toString(), this);
             ws.execute();
         }
     }
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = year+"-"+month+"-"+dayOfMonth;
+        String date = year+"-"+(month+1)+"-"+dayOfMonth;
         txtFechaHistorial.setText(date);
     }
 
     @Override
     public void processFinish(String result) throws JSONException {
-        if(supervisadoId==0){
-            listarSupervisados(result);
-        }else{
-            ArrayList<Historial> lsHistorial= new ArrayList<Historial>();
-            JSONArray JSONlista =  new JSONArray(result);
-            for(int i=0; i< JSONlista.length();i++){
-                JSONObject jsonObjecto=  JSONlista.getJSONObject(i);
-                Historial unaHistoria=new Historial();
+        if (listado.equals("h")) {
+            ArrayList<Historial> lsHistorial = new ArrayList<Historial>();
+            JSONArray JSONlista = new JSONArray(result);
+            for (int i = 0; i < JSONlista.length(); i++) {
+                JSONObject jsonObjecto = JSONlista.getJSONObject(i);
+                Historial unaHistoria = new Historial();
                 unaHistoria.setObservacion(jsonObjecto.getString("observacion"));
                 unaHistoria.setImagen_evidencia(jsonObjecto.getString("imagen_evidencia"));
                 unaHistoria.setFecha_hora(jsonObjecto.getString("fecha_hora"));
                 unaHistoria.setTipo_distraccion__nombre(jsonObjecto.getString("tipo_distraccion__nombre"));
                 lsHistorial.add(unaHistoria);
             }
-            adapterHistorial=new AdapterHistorial(this,lsHistorial);
+            adapterHistorial = new AdapterHistorial(this, lsHistorial);
             rcvHistorial.setAdapter(adapterHistorial);
+        }else{
+            listarSupervisados(result);
         }
+
     }
     public void listarSupervisados(String result) throws JSONException {
         ArrayList<Objeto> lsSuper= new ArrayList<Objeto>();
@@ -138,6 +156,7 @@ public class ActHistorial extends AppCompatActivity implements DatePickerDialog.
         }
 
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(ActHistorial.this);
+        builderSingle.setCancelable(false);
         builderSingle.setIcon(R.drawable.ic_person);
         builderSingle.setTitle("Selecciona un supervisado");
 
@@ -162,6 +181,7 @@ public class ActHistorial extends AppCompatActivity implements DatePickerDialog.
                         for (Supervisado s:ltSupervisados){
                             if (s.getPersona__nombres().equals(strName)){
                                 supervisadoId=s.getId();
+                                txtSeleccionadoSup.setText("Seleccionado : "+s.getPersona__nombres());
                             }
                         }
                         dialog.dismiss();
