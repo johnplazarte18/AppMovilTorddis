@@ -63,19 +63,19 @@
             android:id="@+id/btnConsultar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
             android:background="@drawable/btn_round_corners"
             android:onClick="ocConsultarHistorial"
             android:text="Consultar historial"
             android:textColor="@color/white"
-            app:backgroundTint="@color/Torddis_1"
-            app:icon="@drawable/ic_lock_open"
+            app:backgroundTint="@color/black"
+            app:icon="@drawable/ic_consultar"
             app:iconGravity="textStart"
             app:iconPadding="10dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvHistorial"

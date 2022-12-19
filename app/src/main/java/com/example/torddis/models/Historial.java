@@ -1,11 +1,19 @@
 package com.example.torddis.models;
 
 public class Historial {
+    private int id;
     private String fecha_hora;
     private String imagen_evidencia;
     private String observacion;
     private String tipo_distraccion__nombre;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getFecha_hora() {
         return fecha_hora;
     }

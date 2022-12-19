@@ -1,5 +1,6 @@
 package com.example.torddis.adapterRcVw;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -43,12 +44,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.ViewHolder>  {
+public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.ViewHolder>{
 
     private List<Historial> ltHistorial;
     private Context Ctx;
     AlertDialog alertDialogPersonalizado;
-
     public AdapterHistorial(Context mCtx, List<Historial> historial) {
         this.ltHistorial = historial;
         Ctx=mCtx;
@@ -72,28 +72,12 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.View
         holder.btnVerFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LinearLayout layout = new LinearLayout(Ctx);
-                layout.setOrientation(LinearLayout.VERTICAL);
-                ImageView imageView = new ImageView(Ctx);
-                byte[] decodedString = Base64.decode(unaHistoria.getImagen_evidencia(), Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                imageView.setImageBitmap(decodedByte);
 
-                layout.addView(imageView,40,40);
+                WebService ws= new WebService(Ctx,"GET", APIBase.URLBASE+"monitoreo/historial/?historial_id="+unaHistoria.getId(), (Asynchtask) Ctx);
+                ws.execute();
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(Ctx);
-                builder
-                        .setTitle("IP Cámara")
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                            }
-                        });
-                alertDialogPersonalizado = builder.create();
 
-                alertDialogPersonalizado.setContentView(layout);
-                alertDialogPersonalizado.show();
+
             }
         });
     }
@@ -101,6 +85,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.View
     public int getItemCount() {
         return ltHistorial.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView item_observacion;
