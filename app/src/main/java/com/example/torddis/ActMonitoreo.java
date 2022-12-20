@@ -222,6 +222,15 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
 
     @Override
     public void processFinish(String result) throws JSONException {
+        try {
+            JSONObject jsonObjecto1=  new JSONObject(result);
+            if(jsonObjecto1.has("monitoreo")){
+                Toast.makeText(this,jsonObjecto1.getString("monitoreo"),Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+
+        }
+
         if (guardarCamara) {
             JSONObject jsonObjecto = new JSONObject(result);
             Toast.makeText(this, jsonObjecto.getString("camara"), Toast.LENGTH_SHORT).show();
@@ -254,5 +263,7 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
             }
             this.obtenerDistracciones();
         }
+
+
     }
 }

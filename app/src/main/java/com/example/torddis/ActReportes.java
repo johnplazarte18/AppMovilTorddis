@@ -47,6 +47,7 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
     GraphView grafico_expresiones;
     GraphView grafico_sueno;
     GraphView grafico_objetos;
+    String listado="s";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
         grafico_expresiones = findViewById(R.id.grafico_expresiones);
         grafico_sueno = findViewById(R.id.grafico_sueno);
         grafico_objetos = findViewById(R.id.grafico_objetos);
+
     }
 
     private void showDatePickerDialog() {
@@ -91,6 +93,7 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
     }
 
     public void ocListarSupervisados(View view){
+        listado="s";
         WebService ws= new WebService(ActReportes.this,"GET", APIBase.URLBASE + "persona/supervisado/?tutor_id=" + UsuarioLogeado.unTutor.getId(),this);
         ws.execute();
     }
@@ -99,7 +102,7 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
        if(txtFechaGraficos.getText().toString().equals("") || supervisadoId==0){
             Toast.makeText(this,"Faltan datos por seleccionar",Toast.LENGTH_SHORT).show();
         } else {
-            JSONObject json_data = new JSONObject();
+           listado="r";
             WebService ws = new WebService(ActReportes.this, "GET", APIBase.URLBASE + "monitoreo/graficos/?supervisado_id="+supervisadoId+"&fecha="+txtFechaGraficos.getText().toString(), this);
             ws.execute();
         }
@@ -113,7 +116,7 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
 
     @Override
     public void processFinish(String result) throws JSONException {
-        if(supervisadoId==0){
+        if(listado.equals("s")){
             listarSupervisados(result);
         }else{
             grafico_expresiones.removeAllSeries();
@@ -221,6 +224,7 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
         }
 
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(ActReportes.this);
+        builderSingle.setCancelable(false);
         builderSingle.setIcon(R.drawable.ic_person);
         builderSingle.setTitle("Selecciona un supervisado");
 

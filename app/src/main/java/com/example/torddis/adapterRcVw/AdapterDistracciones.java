@@ -29,7 +29,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AdapterDistracciones extends RecyclerView.Adapter<AdapterDistracciones.ViewHolder> implements Asynchtask {
+public class AdapterDistracciones extends RecyclerView.Adapter<AdapterDistracciones.ViewHolder>  {
 
     private List<Distraccion> ltDistracciones;
     private Context Ctx;
@@ -76,11 +76,7 @@ public class AdapterDistracciones extends RecyclerView.Adapter<AdapterDistraccio
         return ltDistracciones.size();
     }
 
-    @Override
-    public void processFinish(String result) throws JSONException {
-        JSONObject jsonObjecto=  new JSONObject(result);
-        Toast.makeText(Ctx,jsonObjecto.getString("monitoreo"),Toast.LENGTH_SHORT).show();
-    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView item_distraccion;
