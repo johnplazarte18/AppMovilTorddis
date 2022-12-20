@@ -64,20 +64,15 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Historial unaHistoria= ltHistorial.get(position);
-        LocalDateTime dateTime = LocalDateTime.parse(unaHistoria.getFecha_hora().substring(0,unaHistoria.getFecha_hora().length()-7));
-
+        LocalDateTime dateTime = LocalDateTime.parse(unaHistoria.getFecha_hora().substring(0,16));
         holder.item_observacion.setText(unaHistoria.getObservacion());
         holder.item_fecha.setText("Fc : "+dateTime.getYear()+"-"+dateTime.getMonthValue()+"-"+dateTime.getDayOfMonth());
         holder.item_hora.setText("Hr : "+dateTime.getHour()+":"+dateTime.getMinute()+":"+dateTime.getSecond());
         holder.btnVerFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 WebService ws= new WebService(Ctx,"GET", APIBase.URLBASE+"monitoreo/historial/?historial_id="+unaHistoria.getId(), (Asynchtask) Ctx);
                 ws.execute();
-
-
-
             }
         });
     }
