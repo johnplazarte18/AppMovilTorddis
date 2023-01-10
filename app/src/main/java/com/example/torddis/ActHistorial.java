@@ -136,6 +136,7 @@ public class ActHistorial extends AppCompatActivity implements DatePickerDialog.
                 unaHistoria.setImagen_evidencia(jsonObjecto.getString("imagen_evidencia"));
                 unaHistoria.setFecha_hora(jsonObjecto.getString("fecha_hora"));
                 unaHistoria.setTipo_distraccion__nombre(jsonObjecto.getString("tipo_distraccion__nombre"));
+                unaHistoria.setTipo_distraccion__id(jsonObjecto.getInt("tipo_distraccion_id"));
                 lsHistorial.add(unaHistoria);
             }
             adapterHistorial = new AdapterHistorial(this, lsHistorial);

@@ -6,6 +6,7 @@ public class Historial {
     private String imagen_evidencia;
     private String observacion;
     private String tipo_distraccion__nombre;
+    private int tipo_distraccion__id;
 
     public int getId() {
         return id;
@@ -14,6 +15,7 @@ public class Historial {
     public void setId(int id) {
         this.id = id;
     }
+
     public String getFecha_hora() {
         return fecha_hora;
     }
@@ -44,5 +46,13 @@ public class Historial {
 
     public void setTipo_distraccion__nombre(String tipo_distraccion__nombre) {
         this.tipo_distraccion__nombre = tipo_distraccion__nombre;
+    }
+
+    public int getTipo_distraccion__id() {
+        return tipo_distraccion__id;
+    }
+
+    public void setTipo_distraccion__id(int tipo_distraccion__id) {
+        this.tipo_distraccion__id = tipo_distraccion__id;
     }
 }

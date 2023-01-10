@@ -15,8 +15,9 @@
         <entry key="..\:/Users/Carlos/AndroidStudioProjects/AppMovilTorddis/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Carlos/AndroidStudioProjects/AppMovilTorddis/app/src/main/res/layout/activity_menu_opciones.xml" value="0.6" />
         <entry key="..\:/Users/Carlos/AndroidStudioProjects/AppMovilTorddis/app/src/main/res/layout/cabecera.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Carlos/AndroidStudioProjects/AppMovilTorddis/app/src/main/res/layout/card_historial_layout.xml" value="0.4" />
         <entry key="..\:/Users/Carlos/AndroidStudioProjects/AppMovilTorddis/app/src/main/res/layout/card_supervisados_layout.xml" value="0.264" />
-        <entry key="..\:/Users/Carlos/AndroidStudioProjects/AppMovilTorddis/app/src/main/res/layout/card_tiposdistrac_layout.xml" value="0.1585144927536232" />
+        <entry key="..\:/Users/Carlos/AndroidStudioProjects/AppMovilTorddis/app/src/main/res/layout/card_tiposdistrac_layout.xml" value="0.264" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable-v24/btn_round_corners_orange.xml" value="0.2203125" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable-v24/btn_round_corners_white.xml" value="0.2203125" />
         <entry key="..\:/Users/jhonp/Documents/Proyectos/Proyectos_android/AppMovilTorddis/app/src/main/res/drawable/background_menu_gradient_round_corners.xml" value="0.2203125" />
@@ -48,7 +49,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

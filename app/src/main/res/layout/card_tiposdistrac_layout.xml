@@ -30,7 +30,7 @@
             android:layout_toStartOf="@+id/swtDistrac"
             android:text="Reconocer expresiones"
             android:textColor="@color/Torddis_1"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <Switch

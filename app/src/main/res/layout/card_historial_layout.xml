@@ -25,15 +25,16 @@
         <TextView
             android:id="@+id/item_observacion"
             android:layout_width="214dp"
-            android:layout_height="118dp"
+            android:layout_height="122dp"
             android:layout_alignParentTop="true"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="12dp"
+            android:layout_toStartOf="@+id/item_hora"
             android:text="Observación: dadasd dasdasd dasdasd dsadsad dsad"
             android:textColor="@color/Torddis_1"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView

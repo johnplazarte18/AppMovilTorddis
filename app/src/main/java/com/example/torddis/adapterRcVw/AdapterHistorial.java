@@ -65,7 +65,11 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Historial unaHistoria= ltHistorial.get(position);
         LocalDateTime dateTime = LocalDateTime.parse(unaHistoria.getFecha_hora().substring(0,16));
-        holder.item_observacion.setText(unaHistoria.getObservacion());
+        if(unaHistoria.getTipo_distraccion__id() == 2){
+            holder.item_observacion.setText("Se reconoció la expresión facial: " + unaHistoria.getObservacion());
+        }else{
+            holder.item_observacion.setText(unaHistoria.getObservacion());
+        }
         holder.item_fecha.setText("Fc : "+dateTime.getYear()+"-"+dateTime.getMonthValue()+"-"+dateTime.getDayOfMonth());
         holder.item_hora.setText("Hr : "+dateTime.getHour()+":"+dateTime.getMinute()+":"+dateTime.getSecond());
         holder.btnVerFoto.setOnClickListener(new View.OnClickListener() {
