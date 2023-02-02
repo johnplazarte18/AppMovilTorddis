@@ -13,9 +13,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.torddis.adapterRcVw.AdapterHistorial;
+import com.example.torddis.clasesGenerales.Dialog;
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.Historial;
 import com.example.torddis.models.Objeto;
@@ -43,7 +42,7 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
     TextInputEditText txtFechaGraficos;
     TextView txtSeleccionadoSupR;
     List<Supervisado> ltSupervisados;
-    int supervisadoId = 0;
+    int supervisadoId = 0, anio_seleccionado = 0, mes_seleccionado = 0, dia_seleccionado = 0;
     GraphView grafico_expresiones;
     GraphView grafico_sueno;
     GraphView grafico_objetos;
@@ -75,9 +74,9 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
                 this,
                 R.style.datePickerDialog,
                 this,
-                Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+                this.anio_seleccionado == 0? Calendar.getInstance().get(Calendar.YEAR): this.anio_seleccionado,
+                this.mes_seleccionado == 0? Calendar.getInstance().get(Calendar.MONTH): this.mes_seleccionado,
+                this.dia_seleccionado == 0? Calendar.getInstance().get(Calendar.DAY_OF_MONTH): this.dia_seleccionado
         );
         datePickerDialog.show();
     }
@@ -100,7 +99,7 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
 
     public void ocConsultarGraficos(View view){
        if(txtFechaGraficos.getText().toString().equals("") || supervisadoId==0){
-            Toast.makeText(this,"Faltan datos por seleccionar",Toast.LENGTH_SHORT).show();
+           Dialog.showDialog("Faltan datos por seleccionar", this);
         } else {
            listado="r";
             WebService ws = new WebService(ActReportes.this, "GET", APIBase.URLBASE + "monitoreo/graficos/?supervisado_id="+supervisadoId+"&fecha="+txtFechaGraficos.getText().toString(), this);
@@ -111,6 +110,9 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String date = year + "-" + (month+1) + "-" + dayOfMonth;
+        this.anio_seleccionado = year;
+        this.mes_seleccionado = month;
+        this.dia_seleccionado = dayOfMonth;
         txtFechaGraficos.setText(date);
     }
 
@@ -202,7 +204,7 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
                 }
             });
 
-            serie_objetos.setTitle("Uso de objeto sin permisos");
+            serie_objetos.setTitle("Últimos 7 días, uso de objetos sin permiso");
             serie_objetos.setDrawValuesOnTop(true);
             serie_objetos.setAnimated(true);
             serie_objetos.setValuesOnTopColor(Color.MAGENTA);
@@ -226,12 +228,11 @@ public class ActReportes extends AppCompatActivity implements DatePickerDialog.O
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(ActReportes.this);
         builderSingle.setCancelable(false);
         builderSingle.setIcon(R.drawable.ic_person);
-        builderSingle.setTitle("Selecciona un supervisado");
+        builderSingle.setTitle("Seleccione un niño");
 
         builderSingle.setNegativeButton("Cerrar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
                 dialog.dismiss();
             }
         });

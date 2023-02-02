@@ -1,14 +1,18 @@
 package com.example.torddis;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.torddis.clasesGenerales.Dialog;
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.Tutor;
 import com.example.torddis.models.UsuarioLogeado;
@@ -22,11 +26,17 @@ import org.json.JSONObject;
 public class Iniciar_sesion extends AppCompatActivity implements Asynchtask {
 
     JSONObject json_data;
+    TextInputEditText txtUsuario;
+    TextInputEditText txtClave;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//mostrar flecha atras
+
+        txtUsuario=(findViewById(R.id.txtUsuario));
+        txtClave=(findViewById(R.id.txtClave));
     }
 
     @Override
@@ -39,11 +49,8 @@ public class Iniciar_sesion extends AppCompatActivity implements Asynchtask {
         return super.onOptionsItemSelected(item);
     }
     public void ocIniciarSesion(View view) throws JSONException {
-        TextInputEditText txtUsuario=(findViewById(R.id.txtUsuario));
-        TextInputEditText txtClave=(findViewById(R.id.txtClave));
-
         if(txtUsuario.getText().toString().trim().isEmpty() || txtClave.getText().toString().trim().isEmpty()){
-            Toast.makeText(this, "Existen campos sin llenar", Toast.LENGTH_SHORT).show();
+            Dialog.showDialog("Existen campos sin llenar", this);
         }else {
             json_data = new JSONObject();
             json_data.put("usuario", txtUsuario.getText().toString());
@@ -66,11 +73,12 @@ public class Iniciar_sesion extends AppCompatActivity implements Asynchtask {
             unTutor.setPersona__apellidos(json_data.getString("persona__apellidos"));
             unTutor.setPersona__fecha_nacimiento(json_data.getString("persona__fecha_nacimiento"));
             UsuarioLogeado.unTutor=unTutor;
+            txtUsuario.setText("");
+            txtClave.setText("");
             Intent intent = new Intent(getApplicationContext(), Menu_opciones.class);
             startActivity(intent);
         }else{
-                Toast.makeText(this,json_data.getString("tutores"),Toast.LENGTH_SHORT).show();
+            Dialog.showDialog(json_data.getString("tutores"), this);
         }
-
     }
 }

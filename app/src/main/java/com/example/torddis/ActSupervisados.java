@@ -10,12 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.example.torddis.adapterRcVw.AdapterObjeto;
 import com.example.torddis.adapterRcVw.AdapterSupervisado;
 import com.example.torddis.interfaces.APIBase;
-import com.example.torddis.models.Objeto;
 import com.example.torddis.models.Supervisado;
 import com.example.torddis.models.UsuarioLogeado;
 import com.example.torddis.webService.Asynchtask;
@@ -34,7 +31,7 @@ public class ActSupervisados extends AppCompatActivity implements Asynchtask {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_supervisados);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//mostrar flecha atras
-        getSupportActionBar().setTitle("Lista de supervisados");
+        getSupportActionBar().setTitle("Lista de niños");
 
         rcvSupervisados = (RecyclerView) findViewById(R.id.rcvSupervisados);
         rcvSupervisados.setHasFixedSize(true);
@@ -44,7 +41,6 @@ public class ActSupervisados extends AppCompatActivity implements Asynchtask {
     private void obtenerSupervisados() {
         WebService ws= new WebService(ActSupervisados.this,"GET", APIBase.URLBASE+"persona/supervisado/?tutor_id="+ UsuarioLogeado.unTutor.getId(),this);
         ws.execute();
-
     }
 
     @Override
@@ -68,7 +64,6 @@ public class ActSupervisados extends AppCompatActivity implements Asynchtask {
             unSupervisado.setPersona__fecha_nacimiento(jsonObjecto.getString("persona__fecha_nacimiento"));
             unSupervisado.setPersona__foto_perfil(jsonObjecto.getString("persona__foto_perfil"));
             unSupervisado.setPersona__edad(jsonObjecto.getString("persona__edad"));
-
             lsSupervisadosws.add(unSupervisado);
         }
         AdapterSupervisado adapterSupervisado=new AdapterSupervisado(this,lsSupervisadosws);

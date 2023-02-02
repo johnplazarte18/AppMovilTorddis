@@ -22,9 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class ActObjetos extends AppCompatActivity implements Asynchtask,SearchView.OnQueryTextListener {
 
@@ -50,7 +47,6 @@ public class ActObjetos extends AppCompatActivity implements Asynchtask,SearchVi
     private void obtenerObjetos() {
         WebService ws= new WebService(ActObjetos.this,"GET",APIBase.URLBASE+"monitoreo/permisos-objeto/?tutor_id="+ UsuarioLogeado.unTutor.getId(),this);
         ws.execute();
-
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

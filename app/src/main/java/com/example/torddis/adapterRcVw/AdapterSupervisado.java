@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.torddis.ActEditarSupervisado;
 import com.example.torddis.ActEntrenar;
-import com.example.torddis.ActSupervisados;
 import com.example.torddis.R;
 import com.example.torddis.models.Supervisado;
 

@@ -13,8 +13,27 @@
         android:layout_height="90dp">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVincularCamara2"
+            android:layout_width="180dp"
+            android:layout_height="53dp"
+            android:background="@drawable/btn_round_corners"
+            android:onClick="ocVincularDispositivo"
+            android:text="Vincular dispositivo"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/Torddis_1"
+            app:icon="@drawable/ic_vincular"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnEntrenarMode"
+            app:layout_constraintHorizontal_bias="0.219"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.513" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEntrenarMode"
-            android:layout_width="193dp"
+            android:layout_width="180dp"
             android:layout_height="53dp"
             android:background="@drawable/btn_round_corners"
             android:backgroundTint="@color/black"
@@ -27,7 +46,6 @@
             app:iconPadding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.513" />
 
@@ -39,7 +57,7 @@
         android:layout_height="wrap_content"
         android:text="Video de la cámara"
         android:textColor="@color/Torddis_1"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"

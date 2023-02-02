@@ -6,37 +6,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
-import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Toast;
 
+import com.example.torddis.clasesGenerales.Dialog;
 import com.example.torddis.clasesGenerales.FunIMG;
 import com.example.torddis.interfaces.APIBase;
-import com.example.torddis.models.UsuarioLogeado;
 import com.example.torddis.webService.Asynchtask;
 import com.example.torddis.webService.WebService;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -44,10 +35,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Registrar_tutor extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, Asynchtask {
     TextInputEditText txtFechaNace;
     CircleImageView imgTutorReg;
+    AlertDialog.Builder builder;
     private static final int PICK_IMAGE = 100;
     Uri imageUri;
     JSONObject json_data;
-    AlertDialog.Builder builder;
     boolean imagenSelec=false;
 
     @Override
@@ -125,8 +116,7 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
                 tilContrasena.getEditText().getText().toString().trim().isEmpty()||
                 tilContrasenaRep.getEditText().getText().toString().trim().isEmpty()
         ){
-
-            Toast.makeText(this, "Existen campos sin llenar", Toast.LENGTH_SHORT).show();
+            Dialog.showDialog("Existen campos sin llenar", this);
         }else{
             if(tilContrasena.getEditText().getText().toString().equals(tilContrasenaRep.getEditText().getText().toString())){
                 json_data = new JSONObject();
@@ -148,33 +138,28 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 WebService ws= new WebService(Registrar_tutor.this,"POST", APIBase.URLBASE+"persona/tutor/",json_data.toString(),Registrar_tutor.this);
                 ws.execute();
             }else{
-                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                Dialog.showDialog("Las contraseñas no coinciden", this);
             }
         }
-
-
     }
 
 
     @Override
     public void processFinish(String result) throws JSONException {
         json_data = new JSONObject(result);
-
         String mensaje=json_data.getString("tutores");
-
         if(mensaje.equals("usuario repetido")){
-            Toast.makeText(this, "Usuario ya existente", Toast.LENGTH_SHORT).show();
+            Dialog.showDialog("El usuario ya se encuentra registrado por otra persona", this);
         }else if(mensaje.equals("error")){
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            Dialog.showDialog("Error al crear la cuenta de tutor, por favor intente nuevamente", this);
         }else if (mensaje.equals("guardado")){
-            builder=new AlertDialog.Builder(this);
+            builder = new AlertDialog.Builder(this);
             builder.setCancelable(false);
-            builder.setTitle("Mensaje de confirmación")
-                    .setMessage("Tutor registrado")
+            builder.setTitle("Mensaje")
+                    .setMessage("Tutor registrado exitosamente")
                     .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

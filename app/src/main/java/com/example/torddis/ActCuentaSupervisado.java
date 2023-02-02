@@ -8,18 +8,15 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.example.torddis.clasesGenerales.Dialog;
 import com.example.torddis.clasesGenerales.FunIMG;
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.UsuarioLogeado;
@@ -31,7 +28,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -40,9 +36,9 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
     private static final int PICK_IMAGE = 100;
     Uri imageUri;
     CircleImageView imgUsuarioSup;
+    AlertDialog.Builder builder;
     JSONObject json_data;
     TextInputEditText txtFechaNaceSup;
-    AlertDialog.Builder builder;
     boolean imagenSelec=false;
 
     @Override
@@ -50,7 +46,7 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_cuenta_supervisado);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//mostrar flecha atras
-        getSupportActionBar().setTitle("Cuenta de supervisado");
+        getSupportActionBar().setTitle("Datos del niño");
         imgUsuarioSup = (CircleImageView)findViewById(R.id.imgUsuarioSup);
 
         txtFechaNaceSup=findViewById(R.id.txtFechaNaceSup);
@@ -106,9 +102,8 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
             tilNombresSup.getEditText().getText().toString().trim().isEmpty() ||
             tilFechaNaceSup.getEditText().getText().toString().trim().isEmpty()
         ){
-            Toast.makeText(this, "Existen campos sin llenar", Toast.LENGTH_SHORT).show();
+            Dialog.showDialog("Existen campos sin llenar", this);
         }else {
-
             json_data = new JSONObject();
             try {
                 json_data.put("tutor_id", UsuarioLogeado.unTutor.getId());
@@ -126,7 +121,6 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
             WebService ws = new WebService(ActCuentaSupervisado.this, "POST", APIBase.URLBASE + "persona/supervisado/", json_data.toString(), ActCuentaSupervisado.this);
             ws.execute();
         }
@@ -147,28 +141,19 @@ public class ActCuentaSupervisado extends AppCompatActivity implements Asynchtas
 
         String mensaje=json_data.getString("supervisados");
         if(mensaje.equals("guardado")){
-            builder=new AlertDialog.Builder(this);
+            builder = new AlertDialog.Builder(this);
             builder.setCancelable(false);
-            builder.setTitle("Mensaje de confirmación")
-                    .setMessage("Supervisado registrado")
+            builder.setTitle("Mensaje")
+                    .setMessage("Niño registrado exitosamente")
                     .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
                     });
+            builder.show();
         }else{
-            builder=new AlertDialog.Builder(this);
-            builder.setCancelable(false);
-            builder.setTitle("Mensaje")
-                    .setMessage(mensaje)
-                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
+            Dialog.showDialog(mensaje, this);
         }
-        builder.show();
     }
 }

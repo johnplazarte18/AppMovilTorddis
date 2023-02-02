@@ -20,10 +20,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActVincularDispositivo"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ActCuentaSupervisado"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -33,10 +29,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ActHistorial"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActCamaras"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

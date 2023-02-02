@@ -1,7 +1,5 @@
 package com.example.torddis.adapterRcVw;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +10,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.torddis.ActObjetos;
 import com.example.torddis.R;
+import com.example.torddis.clasesGenerales.Dialog;
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.Objeto;
 import com.example.torddis.models.UsuarioLogeado;
@@ -31,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AdapterObjeto extends RecyclerView.Adapter<AdapterObjeto.ViewHolder>  {
+public class AdapterObjeto extends RecyclerView.Adapter<AdapterObjeto.ViewHolder> {
 
     private List<Objeto> ltObjetos;
     private List<Objeto> ltObjetosCp;
@@ -102,6 +99,7 @@ public class AdapterObjeto extends RecyclerView.Adapter<AdapterObjeto.ViewHolder
     public int getItemCount() {
         return ltObjetos.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtObjeto;

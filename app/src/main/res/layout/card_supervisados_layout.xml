@@ -74,7 +74,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEntrenar"
                 android:layout_width="185dp"
-                android:layout_height="37dp"
+                android:layout_height="40dp"
                 android:layout_above="@+id/btnModificarSup"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="18dp"

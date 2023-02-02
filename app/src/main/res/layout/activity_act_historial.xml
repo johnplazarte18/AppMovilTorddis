@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:hint="Seleccionar fecha..."
+            android:hint="Seleccione una fecha"
             app:boxStrokeColor="@color/Torddis_1"
             app:hintTextColor="@color/Torddis_1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,18 +40,18 @@
             android:id="@+id/btnSupervisados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:background="@drawable/btn_round_corners"
             android:onClick="ocListarSupervisados"
-            android:text="Supervisados"
+            android:text="Niños"
             android:textColor="@color/white"
             app:backgroundTint="@color/Torddis_1"
             app:icon="@drawable/ic_face"
             app:iconGravity="textStart"
             app:iconPadding="10dp"
-            android:layout_marginTop="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/txtSeleccionadoSup"

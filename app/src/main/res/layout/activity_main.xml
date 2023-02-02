@@ -13,16 +13,17 @@
         android:id="@+id/txtBienvenido"
         android:layout_width="258dp"
         android:layout_height="115dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="sans-serif"
         android:text="Bienvenido a Torddis"
+        android:textAlignment="center"
         android:textColor="@color/Torddis_2"
         android:textSize="48dp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <ImageView
         android:id="@+id/imageView"

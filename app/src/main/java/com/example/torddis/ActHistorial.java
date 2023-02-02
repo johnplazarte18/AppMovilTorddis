@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,13 +16,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.torddis.adapterRcVw.AdapterHistorial;
-import com.example.torddis.adapterRcVw.AdapterObjeto;
+import com.example.torddis.clasesGenerales.Dialog;
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.Historial;
 import com.example.torddis.models.Objeto;
@@ -42,15 +39,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ActHistorial extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, Asynchtask {
     TextInputEditText txtFechaHistorial;
     TextView txtSeleccionadoSup;
     List<Supervisado> ltSupervisados;
-    int supervisadoId=0;
+    int supervisadoId = 0, anio_seleccionado = 0, mes_seleccionado = 0, dia_seleccionado = 0;
     AdapterHistorial adapterHistorial;
     RecyclerView rcvHistorial;
     String listado="h";
@@ -81,9 +76,9 @@ public class ActHistorial extends AppCompatActivity implements DatePickerDialog.
                 this,
                 R.style.datePickerDialog,
                 this,
-                Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+                this.anio_seleccionado == 0? Calendar.getInstance().get(Calendar.YEAR): this.anio_seleccionado,
+                this.mes_seleccionado == 0? Calendar.getInstance().get(Calendar.MONTH): this.mes_seleccionado,
+                this.dia_seleccionado == 0? Calendar.getInstance().get(Calendar.DAY_OF_MONTH): this.dia_seleccionado
         );
         datePickerDialog.show();
     }
@@ -110,7 +105,7 @@ public class ActHistorial extends AppCompatActivity implements DatePickerDialog.
     }
     public void ocConsultarHistorial(View view){
         if(txtFechaHistorial.getText().toString().equals("") || supervisadoId==0){
-            Toast.makeText(this,"Faltan datos por seleccionar",Toast.LENGTH_SHORT).show();
+            Dialog.showDialog("Faltan datos por seleccionar", this);
         }else {
             listado="h";
             WebService ws = new WebService(ActHistorial.this, "GET", APIBase.URLBASE + "monitoreo/historial/?supervisado_id="+supervisadoId+"&fecha="+txtFechaHistorial.getText().toString(), this);
@@ -120,6 +115,9 @@ public class ActHistorial extends AppCompatActivity implements DatePickerDialog.
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String date = year+"-"+(month+1)+"-"+dayOfMonth;
+        this.anio_seleccionado = year;
+        this.mes_seleccionado = month;
+        this.dia_seleccionado = dayOfMonth;
         txtFechaHistorial.setText(date);
     }
 
@@ -185,7 +183,7 @@ public class ActHistorial extends AppCompatActivity implements DatePickerDialog.
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(ActHistorial.this);
         builderSingle.setCancelable(false);
         builderSingle.setIcon(R.drawable.ic_person);
-        builderSingle.setTitle("Selecciona un supervisado");
+        builderSingle.setTitle("Seleccione un niño");
 
         builderSingle.setNegativeButton("Cerrar", new DialogInterface.OnClickListener() {
             @Override

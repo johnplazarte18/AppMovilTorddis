@@ -10,15 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -27,16 +23,12 @@ import android.webkit.WebViewClient;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.Switch;
-import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.example.torddis.adapterRcVw.AdapterDistracciones;
-import com.example.torddis.adapterRcVw.AdapterSupervisado;
+import com.example.torddis.clasesGenerales.Dialog;
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.Distraccion;
-import com.example.torddis.models.Supervisado;
 import com.example.torddis.models.UsuarioLogeado;
 import com.example.torddis.webService.Asynchtask;
 import com.example.torddis.webService.WebService;
@@ -85,15 +77,12 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
                 if (direccion_correcta) {
                     if (borrarContenidoView) {
                         borrarContenidoView = false;
-                        Toast.makeText(ActMonitoreo.this, "Dirección de transmisión no encontrada", Toast.LENGTH_LONG).show();
+                        Dialog.showDialog("Dirección de transmisión no encontrada", getBaseContext());
                         swtTransmision.setChecked(false);
-                    } else {
-                        Toast.makeText(ActMonitoreo.this, "Transmisión cargada con exito", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     borrarContenidoView = true;
                     webvideo.loadUrl("about:blank");
-
                 }
             }
 
@@ -116,7 +105,6 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
                 }
             }
         });
-
         this.obtenerCamaras();
     }
 
@@ -154,7 +142,6 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
         listarDistracciones = true;
         WebService ws = new WebService(ActMonitoreo.this, "GET", APIBase.URLBASE + "monitoreo/tipos-distraccion/?tutor_id=" + UsuarioLogeado.unTutor.getId(), this);
         ws.execute();
-
     }
 
     private void guardarCamara(int idCamara, String ruta) throws JSONException {
@@ -189,7 +176,7 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
         EditText editTextNombre = new EditText(ActMonitoreo.this);
         editTextNombre.setFilters(new InputFilter[]{new InputFilter.LengthFilter(150)});
         editTextNombre.setText(direccion_ruta);
-        editTextNombre.setHint("Ingresar dirección ip la cámara");
+        editTextNombre.setHint("Ingresar dirección IP la cámara");
         layout.addView(editTextNombre);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(ActMonitoreo.this);
@@ -225,15 +212,14 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
         try {
             JSONObject jsonObjecto1=  new JSONObject(result);
             if(jsonObjecto1.has("monitoreo")){
-                Toast.makeText(this,jsonObjecto1.getString("monitoreo"),Toast.LENGTH_SHORT).show();
+                Dialog.showDialog(jsonObjecto1.getString("monitoreo"), this);
             }
         }catch (Exception e){
-
         }
 
         if (guardarCamara) {
             JSONObject jsonObjecto = new JSONObject(result);
-            Toast.makeText(this, jsonObjecto.getString("camara"), Toast.LENGTH_SHORT).show();
+            Dialog.showDialog(jsonObjecto.getString("camara"), this);
             direccion_ruta = json_data.getString("direccion_ruta");
             this.obtenerDistracciones();
         } else if (listarDistracciones) {
@@ -245,7 +231,6 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
                 unaDistraccion.setId(jsonObjecto.getInt("id"));
                 unaDistraccion.setNombre(jsonObjecto.getString("nombre"));
                 unaDistraccion.setHabilitado(jsonObjecto.getBoolean("habilitado"));
-
                 lsDistraccionws.add(unaDistraccion);
             }
             AdapterDistracciones adapterDistracciones = new AdapterDistracciones(this, lsDistraccionws);
@@ -259,11 +244,8 @@ public class ActMonitoreo extends AppCompatActivity implements Asynchtask {
                 JSONObject jsonObjecto = JSONlista.getJSONObject(0);
                 idCamara = jsonObjecto.getInt("id");
                 direccion_ruta = jsonObjecto.getString("direccion_ruta");
-
             }
             this.obtenerDistracciones();
         }
-
-
     }
 }

@@ -30,7 +30,6 @@ public class FunIMG {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             imageScaled.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
 
-
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             fotoEnBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
         }

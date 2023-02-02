@@ -7,17 +7,13 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.example.torddis.ActMonitoreo;
 import com.example.torddis.R;
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.Distraccion;
-import com.example.torddis.models.Supervisado;
 import com.example.torddis.models.UsuarioLogeado;
 import com.example.torddis.webService.Asynchtask;
 import com.example.torddis.webService.WebService;
@@ -26,8 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdapterDistracciones extends RecyclerView.Adapter<AdapterDistracciones.ViewHolder>  {
 

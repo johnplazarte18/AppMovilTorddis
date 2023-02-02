@@ -15,9 +15,9 @@ import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.torddis.clasesGenerales.Dialog;
 import com.example.torddis.clasesGenerales.FunIMG;
 import com.example.torddis.interfaces.APIBase;
 import com.example.torddis.models.UsuarioLogeado;
@@ -37,9 +37,9 @@ public class ActEditarSupervisado extends AppCompatActivity implements Asynchtas
     private static final int PICK_IMAGE = 100;
     Uri imageUri;
     CircleImageView imgUsuarioSupE;
+    AlertDialog.Builder builder;
     JSONObject json_data;
     TextInputEditText txtFechaNaceSupE;
-    AlertDialog.Builder builder;
     boolean imagenSelec=false;
     int idSupervisado=0;
 
@@ -48,7 +48,7 @@ public class ActEditarSupervisado extends AppCompatActivity implements Asynchtas
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_editar_supervisado);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//mostrar flecha atras
-        getSupportActionBar().setTitle("Cuenta de supervisado");
+        getSupportActionBar().setTitle("Datos del niño");
 
         idSupervisado = getIntent().getExtras().getInt("idSupervisado");
 
@@ -114,7 +114,7 @@ public class ActEditarSupervisado extends AppCompatActivity implements Asynchtas
                         tilNombresSup.getEditText().getText().toString().trim().isEmpty() ||
                         tilFechaNaceSup.getEditText().getText().toString().trim().isEmpty()
         ){
-            Toast.makeText(this, "Existen campos sin llenar", Toast.LENGTH_SHORT).show();
+            Dialog.showDialog("Existen campos sin llenar", this);
         }else {
 
             json_data = new JSONObject();
@@ -156,28 +156,19 @@ public class ActEditarSupervisado extends AppCompatActivity implements Asynchtas
 
         String mensaje=json_data.getString("supervisados");
         if(mensaje.equals("guardado")){
-            builder=new AlertDialog.Builder(this);
+            builder = new AlertDialog.Builder(this);
             builder.setCancelable(false);
-            builder.setTitle("Mensaje de confirmación")
-                    .setMessage("Cambios realizados")
+            builder.setTitle("Mensaje")
+                    .setMessage("Datos del niño modificados exitosamente")
                     .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
                     });
+            builder.show();
         }else{
-            builder=new AlertDialog.Builder(this);
-            builder.setCancelable(false);
-            builder.setTitle("Mensaje")
-                    .setMessage(mensaje)
-                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
+            Dialog.showDialog(mensaje, this);
         }
-        builder.show();
     }
 }
