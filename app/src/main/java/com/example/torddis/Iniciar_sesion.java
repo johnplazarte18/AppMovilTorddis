@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,8 @@ public class Iniciar_sesion extends AppCompatActivity implements Asynchtask {
     JSONObject json_data;
     TextInputEditText txtUsuario;
     TextInputEditText txtClave;
+    SharedPreferences session;
+    SharedPreferences.Editor editorSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +38,16 @@ public class Iniciar_sesion extends AppCompatActivity implements Asynchtask {
         setContentView(R.layout.activity_iniciar_sesion);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//mostrar flecha atras
 
+        session=this.getSharedPreferences("sesiones",Context.MODE_PRIVATE);
+        editorSession= session.edit();
         txtUsuario=(findViewById(R.id.txtUsuario));
         txtClave=(findViewById(R.id.txtClave));
     }
-
+    private void guardarSesion(JSONObject json_data){
+        editorSession.putBoolean("sesion_guardada",true);
+        editorSession.putString("sesion",json_data.toString());
+        editorSession.apply();
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -64,17 +73,7 @@ public class Iniciar_sesion extends AppCompatActivity implements Asynchtask {
     public void processFinish(String result) throws JSONException {
         json_data = new JSONObject(result);
         if(json_data.has("id")){
-            Tutor unTutor=new Tutor();
-            unTutor.setId(json_data.getInt("id"));
-            unTutor.setUsuario(json_data.getString("usuario"));
-            unTutor.setCorreo(json_data.getString("correo"));
-            unTutor.setFoto_perfil(json_data.getString("foto_perfil"));
-            unTutor.setPersona__nombres(json_data.getString("persona__nombres"));
-            unTutor.setPersona__apellidos(json_data.getString("persona__apellidos"));
-            unTutor.setPersona__fecha_nacimiento(json_data.getString("persona__fecha_nacimiento"));
-            UsuarioLogeado.unTutor=unTutor;
-            txtUsuario.setText("");
-            txtClave.setText("");
+            this.guardarSesion(json_data);
             Intent intent = new Intent(getApplicationContext(), Menu_opciones.class);
             startActivity(intent);
         }else{
