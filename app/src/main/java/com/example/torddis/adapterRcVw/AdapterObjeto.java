@@ -8,11 +8,13 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.torddis.ActObjetos;
 import com.example.torddis.R;
 import com.example.torddis.clasesGenerales.Dialog;
 import com.example.torddis.interfaces.APIBase;
@@ -24,6 +26,7 @@ import com.example.torddis.webService.WebService;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,10 +53,12 @@ public class AdapterObjeto extends RecyclerView.Adapter<AdapterObjeto.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Objeto unObjeto = ltObjetos.get(position);
+        int auxPosition=position;
         holder.txtObjeto.setText(unObjeto.getNombre());
         holder.swtObjeto.setChecked(unObjeto.getHabilitado());
-        holder.swtObjeto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        holder.swtObjeto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 JSONObject json_data = new JSONObject();
                 try {
                     json_data.put("objeto_id", unObjeto.getId());
@@ -61,11 +66,13 @@ public class AdapterObjeto extends RecyclerView.Adapter<AdapterObjeto.ViewHolder
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                if(isChecked){
-                    WebService ws= new WebService(Ctx,"POST", APIBase.URLBASE+"monitoreo/permisos-objeto/",json_data.toString(), (Asynchtask) Ctx);
-                    ws.execute();
-                }else{
+                if (ltObjetos.get(auxPosition).getHabilitado()) {
+                    ltObjetos.get(auxPosition).setHabilitado(false);
                     WebService ws= new WebService(Ctx,"DELETE", APIBase.URLBASE+"monitoreo/permisos-objeto/?tutor_id="+ UsuarioLogeado.unTutor.getId()+"&objeto_id="+unObjeto.getId(), (Asynchtask) Ctx);
+                    ws.execute();
+                } else {
+                    ltObjetos.get(auxPosition).setHabilitado(true);
+                    WebService ws= new WebService(Ctx,"POST", APIBase.URLBASE+"monitoreo/permisos-objeto/",json_data.toString(), (Asynchtask) Ctx);
                     ws.execute();
                 }
             }
