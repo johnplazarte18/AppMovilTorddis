@@ -7,7 +7,6 @@ public class Tutor {
     private Integer persona_id;
     private String persona__nombres;
     private String persona__apellidos;
-    private String persona__cedula;
     private String persona__fecha_nacimiento;
     private String foto_perfil;
 
@@ -57,14 +56,6 @@ public class Tutor {
 
     public void setPersona__apellidos(String persona__apellidos) {
         this.persona__apellidos = persona__apellidos;
-    }
-
-    public String getPersona__cedula() {
-        return persona__cedula;
-    }
-
-    public void setPersona__cedula(String persona__cedula) {
-        this.persona__cedula = persona__cedula;
     }
 
     public String getPersona__fecha_nacimiento() {

@@ -64,7 +64,7 @@ public class ActEditarSupervisado extends AppCompatActivity implements Asynchtas
             Glide.with(this).load(getIntent().getExtras().getString("persona__foto_perfil")).into(imgUsuarioSupE);
         }
 
-        txtFechaNaceSupE=findViewById(R.id.txtFechaNaceSupE);
+        //txtFechaNaceSupE=findViewById(R.id.txtFechaNaceSupE);
         findViewById(R.id.txtFechaNaceSupE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

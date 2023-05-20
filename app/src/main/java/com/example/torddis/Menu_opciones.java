@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.torddis.clasesGenerales.Dialog;
@@ -116,6 +117,34 @@ public class Menu_opciones extends AppCompatActivity implements
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.OpcEditarPerfil:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent intent = new Intent(getApplicationContext(), ActEditarTutor.class);
+                startActivity(intent);
+                return true;
+            case R.id.OpcCerrarSesion:
+                builder=new AlertDialog.Builder(this);
+                builder.setCancelable(false);
+                builder.setTitle("Mensaje")
+                        .setMessage("¿Desea cerrar la sesíon?")
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                editorSession.putBoolean("sesion_guardada",false);
+                                editorSession.remove("sesion");
+                                editorSession.apply();
+                                finish();
+                            }
+                        });
+                builder.show();
+        }
         return false;
     }
 

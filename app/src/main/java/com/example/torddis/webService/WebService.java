@@ -30,6 +30,7 @@ public class WebService extends AsyncTask<String, Long, String> {
     public String link_api = "";
     public String json_body = "";
     public String metodo_request = "";
+    public boolean mensaje = true;
 
 
     ProgressDialog progDailog;
@@ -60,7 +61,10 @@ public class WebService extends AsyncTask<String, Long, String> {
         progDailog.setIndeterminate(false);
         progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progDailog.setCancelable(true);
-        progDailog.show();
+        if(this.mensaje){
+            progDailog.show();
+        }
+        this.mensaje=true;
     }
     @Override
     protected String doInBackground(String... params) {

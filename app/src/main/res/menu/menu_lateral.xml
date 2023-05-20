@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_seccion_1"
-            android:icon="@drawable/ic_notifications"
-            android:title="Notificaciones"/>
-        <item
-            android:id="@+id/menu_seccion_2"
+            android:id="@+id/OpcEditarPerfil"
             android:icon="@drawable/ic_person"
             android:title="Editar perfil"/>
+        <item
+            android:id="@+id/OpcAcercaDe"
+            android:icon="@drawable/ic_info"
+            android:title="Acerca de"/>
     </group>
 
     <item
@@ -16,7 +16,7 @@
         android:title="Otras Opciones">
         <menu>
             <item
-                android:id="@+id/menu_opcion_1"
+                android:id="@+id/OpcCerrarSesion"
                 android:icon="@drawable/ic_close"
                 android:title="Cerrar sesión"/>
         </menu>

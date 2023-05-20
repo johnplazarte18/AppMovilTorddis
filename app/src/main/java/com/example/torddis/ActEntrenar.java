@@ -18,17 +18,25 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.torddis.adapterRcVw.AdapterDistracciones;
 import com.example.torddis.clasesGenerales.Dialog;
 import com.example.torddis.interfaces.APIBase;
+import com.example.torddis.models.Distraccion;
 import com.example.torddis.models.UsuarioLogeado;
 import com.example.torddis.webService.Asynchtask;
 import com.example.torddis.webService.WebService;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ActEntrenar extends AppCompatActivity implements Asynchtask {
+import java.util.ArrayList;
+import java.util.TimerTask;
+
+public class ActEntrenar extends AppCompatActivity  implements Asynchtask {
     WebView webvideo;
     ProgressDialog progDailog;
     String direccion_ruta = "";
@@ -38,13 +46,20 @@ public class ActEntrenar extends AppCompatActivity implements Asynchtask {
     AlertDialog alertDialogPersonalizado;
     boolean entrenar = false;
     JSONObject json_data;
+    Subtarea subtarea;
+    TextView txtPrsEntrenamiento;
+    android.app.AlertDialog.Builder builder;
+
+    int idCamara = 0;
+    String vinculado = "POST";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_entrenar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//mostrar flecha atras
         getSupportActionBar().setTitle("Entrenamiento facial");
-
+        txtPrsEntrenamiento=findViewById(R.id.txtPrsEntrenamiento);
+        subtarea=new Subtarea();
         webvideo = (WebView) findViewById(R.id.webvideoE);
 
         webvideo.setWebViewClient(new WebViewClient() {
@@ -72,12 +87,60 @@ public class ActEntrenar extends AppCompatActivity implements Asynchtask {
             }
         });
         idSupervisado = getIntent().getExtras().getInt("idSupervisado");
+
+        this.obtenerCamaras();
     }
 
-    public void ocVincularDispositivo(View view) {
-
+    public void ocVincularDispositivoE(View view) {
+        this.crearLayoutDialog();
+        alertDialogPersonalizado.show();
     }
+    private void guardarCamara(int idCamara, String ruta) throws JSONException {
 
+        this.direccion_ruta=ruta;
+        if (vinculado.equals("POST")) {
+            entrenar=false;
+            json_data = new JSONObject();
+            json_data.put("direccion_ruta", ruta);
+            json_data.put("tutor_id", UsuarioLogeado.unTutor.getId());
+            WebService ws = new WebService(ActEntrenar.this, "POST", APIBase.URLBASE + "monitoreo/camara/", json_data.toString(), this);
+            ws.execute();
+        } else {
+            entrenar=false;
+            json_data = new JSONObject();
+            json_data.put("id", idCamara);
+            json_data.put("direccion_ruta", ruta);
+            json_data.put("tutor_id", UsuarioLogeado.unTutor.getId());
+            WebService ws = new WebService(ActEntrenar.this, "PUT", APIBase.URLBASE + "monitoreo/camara/", json_data.toString(), this);
+            ws.execute();
+        }
+    }
+    public void crearLayoutDialog() {
+        LinearLayout layout = new LinearLayout(ActEntrenar.this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        EditText editTextNombre = new EditText(ActEntrenar.this);
+        editTextNombre.setFilters(new InputFilter[]{new InputFilter.LengthFilter(150)});
+        editTextNombre.setText(direccion_ruta);
+        editTextNombre.setHint("Ingresar dirección IP la cámara");
+        layout.addView(editTextNombre);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ActEntrenar.this);
+        builder
+                .setTitle("IP Cámara")
+                .setNegativeButton("Cancelar", null)
+                .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            ActEntrenar.this.guardarCamara(idCamara, editTextNombre.getText().toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        alertDialogPersonalizado = builder.create();
+        alertDialogPersonalizado.setView(layout);
+    }
     public void verTransmision() {
         String newUA = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0";
         webvideo.getSettings().setUserAgentString(newUA);
@@ -98,6 +161,7 @@ public class ActEntrenar extends AppCompatActivity implements Asynchtask {
 
 
     public void ocEntrenar(View view) throws JSONException {
+        subtarea.run();
         entrenar=true;
         json_data = new JSONObject();
         json_data.put("supervisado_id", idSupervisado);
@@ -114,9 +178,72 @@ public class ActEntrenar extends AppCompatActivity implements Asynchtask {
         }
         return super.onOptionsItemSelected(item);
     }
+    private void obtenerCamaras() {
+        entrenar = false;
+        WebService ws = new WebService(ActEntrenar.this, "GET", APIBase.URLBASE + "monitoreo/camara/?tutor_id=" + UsuarioLogeado.unTutor.getId(), this);
+        ws.execute();
+    }
     @Override
     public void processFinish(String result) throws JSONException {
-        verTransmision();
-        progDailog.dismiss();
+        try {
+            JSONObject jsonResult=  new JSONObject(result);
+            if (jsonResult.has("fin_entrenamiento")){
+                if(!jsonResult.getBoolean("fin_entrenamiento")){
+                    txtPrsEntrenamiento.setText(jsonResult.getString("estado"));
+                    subtarea.run();
+                }else{
+                    subtarea.cancel();
+                    builder=new android.app.AlertDialog.Builder(this);
+                    builder.setCancelable(false);
+                    builder.setTitle("Mensaje")
+                            .setMessage("Entrenamiento finalizado")
+                            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            });
+                    builder.show();
+                }
+            }
+        }catch (Exception e){
+
+        }
+
+
+        if (entrenar) {
+
+            verTransmision();
+            progDailog.dismiss();
+
+        } else {
+            JSONArray JSONlista = new JSONArray(result);
+            System.out.println(result);
+            if (JSONlista.length() == 0) {
+                vinculado = "POST";
+                JSONObject jsonObjecto = JSONlista.getJSONObject(0);
+                idCamara = jsonObjecto.getInt("id");
+                direccion_ruta = jsonObjecto.getString("direccion_ruta");
+            } else {
+                vinculado = "PUT";
+                JSONObject jsonObjecto = JSONlista.getJSONObject(0);
+                idCamara = jsonObjecto.getInt("id");
+                direccion_ruta = jsonObjecto.getString("direccion_ruta");
+            }
+        }
+    }
+    public class Subtarea extends TimerTask {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            WebService ws = new WebService(ActEntrenar.this, "GET", APIBase.URLBASE + "monitoreo/video/?estado_entrenamiento", ActEntrenar.this);
+            ws.mensaje=false;
+            ws.execute();
+        }
+
     }
 }

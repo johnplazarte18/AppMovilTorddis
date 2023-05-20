@@ -19,7 +19,7 @@
             android:layout_height="53dp"
             android:background="@drawable/btn_round_corners"
             android:onClick="ocVincularDispositivo"
-            android:text="Vincular dispositivo"
+            android:text="Registrar dispositivo"
             android:textColor="@color/white"
             app:backgroundTint="@color/Torddis_1"
             app:icon="@drawable/ic_vincular"

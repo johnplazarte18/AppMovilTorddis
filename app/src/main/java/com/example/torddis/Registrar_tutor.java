@@ -46,6 +46,7 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_tutor);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//mostrar flecha atras
+        getSupportActionBar().setTitle("Registrar cuenta");
 
         imgTutorReg = (CircleImageView)findViewById(R.id.imgTutorReg);
         txtFechaNace=findViewById(R.id.txtFechaNace);
@@ -79,7 +80,7 @@ public class Registrar_tutor extends AppCompatActivity implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = year+"-"+month+"-"+dayOfMonth;
+        String date = year+"-"+(month+1)+"-"+dayOfMonth;
         txtFechaNace.setText(date);
     }
     public void ocAbrirGaleria(View view){
