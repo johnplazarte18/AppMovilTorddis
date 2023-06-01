@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.torddis.clasesGenerales.Dialog;
 import com.example.torddis.clasesGenerales.FunIMG;
 import com.example.torddis.interfaces.APIBase;
+import com.example.torddis.interfaces.imgTemporal;
 import com.example.torddis.models.UsuarioLogeado;
 import com.example.torddis.webService.Asynchtask;
 import com.example.torddis.webService.WebService;
@@ -60,11 +61,10 @@ public class ActEditarSupervisado extends AppCompatActivity implements Asynchtas
         tilNombresSupE.getEditText().setText(getIntent().getExtras().getString("persona__nombres"));
         tilApellidosSupE.getEditText().setText(getIntent().getExtras().getString("persona__apellidos"));
         txtFechaNaceSupE.setText(getIntent().getExtras().getString("persona__fecha_nacimiento"));
-        if(!getIntent().getExtras().getString("persona__foto_perfil").isEmpty()){
-            Glide.with(this).load(getIntent().getExtras().getString("persona__foto_perfil")).into(imgUsuarioSupE);
+        if(!imgTemporal.IMGSUPERVISADO.isEmpty()){
+            Glide.with(this).load(imgTemporal.IMGSUPERVISADO).into(imgUsuarioSupE);
         }
 
-        //txtFechaNaceSupE=findViewById(R.id.txtFechaNaceSupE);
         findViewById(R.id.txtFechaNaceSupE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

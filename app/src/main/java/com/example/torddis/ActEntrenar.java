@@ -43,6 +43,7 @@ public class ActEntrenar extends AppCompatActivity  implements Asynchtask {
     int idSupervisado = 0;
     boolean direccion_correcta = true;
     boolean borrarContenidoView = false;
+    boolean guardarCamara = true;
     AlertDialog alertDialogPersonalizado;
     boolean entrenar = false;
     JSONObject json_data;
@@ -97,7 +98,7 @@ public class ActEntrenar extends AppCompatActivity  implements Asynchtask {
     }
     private void guardarCamara(int idCamara, String ruta) throws JSONException {
 
-        this.direccion_ruta=ruta;
+        guardarCamara = true;
         if (vinculado.equals("POST")) {
             entrenar=false;
             json_data = new JSONObject();
@@ -163,6 +164,8 @@ public class ActEntrenar extends AppCompatActivity  implements Asynchtask {
     public void ocEntrenar(View view) throws JSONException {
         subtarea.run();
         entrenar=true;
+
+        guardarCamara = false;
         json_data = new JSONObject();
         json_data.put("supervisado_id", idSupervisado);
         json_data.put("tutor_id", UsuarioLogeado.unTutor.getId());
@@ -179,12 +182,21 @@ public class ActEntrenar extends AppCompatActivity  implements Asynchtask {
         return super.onOptionsItemSelected(item);
     }
     private void obtenerCamaras() {
+
+        guardarCamara = false;
         entrenar = false;
         WebService ws = new WebService(ActEntrenar.this, "GET", APIBase.URLBASE + "monitoreo/camara/?tutor_id=" + UsuarioLogeado.unTutor.getId(), this);
         ws.execute();
     }
     @Override
     public void processFinish(String result) throws JSONException {
+        if (guardarCamara) {
+            JSONObject jsonObjecto = new JSONObject(result);
+            Dialog.showDialog(jsonObjecto.getString("camara"), this);
+            direccion_ruta = json_data.getString("direccion_ruta");
+            this.obtenerCamaras();
+        }
+
         try {
             JSONObject jsonResult=  new JSONObject(result);
             if (jsonResult.has("fin_entrenamiento")){
@@ -212,10 +224,8 @@ public class ActEntrenar extends AppCompatActivity  implements Asynchtask {
 
 
         if (entrenar) {
-
             verTransmision();
             progDailog.dismiss();
-
         } else {
             JSONArray JSONlista = new JSONArray(result);
             System.out.println(result);

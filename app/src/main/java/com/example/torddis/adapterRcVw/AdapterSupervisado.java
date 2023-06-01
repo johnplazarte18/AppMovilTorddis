@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.torddis.ActEditarSupervisado;
 import com.example.torddis.ActEntrenar;
 import com.example.torddis.R;
+import com.example.torddis.interfaces.imgTemporal;
 import com.example.torddis.models.Supervisado;
 
 import java.util.List;
@@ -58,7 +59,8 @@ public class AdapterSupervisado extends RecyclerView.Adapter<AdapterSupervisado.
                 intent.putExtra("persona__nombres", unSupervisado.getPersona__nombres());
                 intent.putExtra("persona__apellidos", unSupervisado.getPersona__apellidos());
                 intent.putExtra("persona__fecha_nacimiento", unSupervisado.getPersona__fecha_nacimiento());
-                intent.putExtra("persona__foto_perfil", unSupervisado.getPersona__foto_perfil());
+                imgTemporal.IMGSUPERVISADO="";
+                imgTemporal.IMGSUPERVISADO=unSupervisado.getPersona__foto_perfil();
                 Ctx.startActivity(intent);
             }
         });
